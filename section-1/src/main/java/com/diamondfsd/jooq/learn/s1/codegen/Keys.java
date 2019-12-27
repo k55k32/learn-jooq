@@ -54,6 +54,6 @@ public class Keys {
     }
 
     private static class UniqueKeys0 {
-        public static final UniqueKey<S1UserRecord> KEY_S1_USER_PRIMARY = Internal.createUniqueKey(S1User.S1_USER, "KEY_s1-user_PRIMARY", S1User.S1_USER.ID);
+        public static final UniqueKey<S1UserRecord> KEY_S1_USER_PRIMARY = Internal.createUniqueKey(S1User.S1_USER, "KEY_s1_user_PRIMARY", S1User.S1_USER.ID);
     }
 }

@@ -50,7 +50,7 @@
                     </jdbc>
                     <generator>
                         <database>
-                            <includes>s1-.*</includes>
+                            <includes>s1_.*</includes>
                             <inputSchema>learn-jooq</inputSchema>
                         </database>
                         <target>

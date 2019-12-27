@@ -43,10 +43,10 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class S1User extends TableImpl<S1UserRecord> {
 
-    private static final long serialVersionUID = -874915117;
+    private static final long serialVersionUID = 1673188221;
 
     /**
-     * The reference instance of <code>learn-jooq.s1-user</code>
+     * The reference instance of <code>learn-jooq.s1_user</code>
      */
     public static final S1User S1_USER = new S1User();
 
@@ -59,51 +59,51 @@ public class S1User extends TableImpl<S1UserRecord> {
     }
 
     /**
-     * The column <code>learn-jooq.s1-user.id</code>. ID
+     * The column <code>learn-jooq.s1_user.id</code>. ID
      */
     public final TableField<S1UserRecord, Integer> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).identity(true), this, "ID");
 
     /**
-     * The column <code>learn-jooq.s1-user.username</code>.
+     * The column <code>learn-jooq.s1_user.username</code>.
      */
     public final TableField<S1UserRecord, String> USERNAME = createField(DSL.name("username"), org.jooq.impl.SQLDataType.VARCHAR(50).nullable(false), this, "");
 
     /**
-     * The column <code>learn-jooq.s1-user.email</code>.
+     * The column <code>learn-jooq.s1_user.email</code>.
      */
     public final TableField<S1UserRecord, String> EMAIL = createField(DSL.name("email"), org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
 
     /**
-     * The column <code>learn-jooq.s1-user.address</code>.
+     * The column <code>learn-jooq.s1_user.address</code>.
      */
     public final TableField<S1UserRecord, String> ADDRESS = createField(DSL.name("address"), org.jooq.impl.SQLDataType.VARCHAR(128), this, "");
 
     /**
-     * The column <code>learn-jooq.s1-user.create_time</code>.
+     * The column <code>learn-jooq.s1_user.create_time</code>.
      */
     public final TableField<S1UserRecord, Timestamp> CREATE_TIME = createField(DSL.name("create_time"), org.jooq.impl.SQLDataType.TIMESTAMP.defaultValue(org.jooq.impl.DSL.field("CURRENT_TIMESTAMP", org.jooq.impl.SQLDataType.TIMESTAMP)), this, "");
 
     /**
-     * The column <code>learn-jooq.s1-user.update_time</code>.
+     * The column <code>learn-jooq.s1_user.update_time</code>.
      */
     public final TableField<S1UserRecord, Timestamp> UPDATE_TIME = createField(DSL.name("update_time"), org.jooq.impl.SQLDataType.TIMESTAMP.defaultValue(org.jooq.impl.DSL.field("CURRENT_TIMESTAMP", org.jooq.impl.SQLDataType.TIMESTAMP)), this, "");
 
     /**
-     * Create a <code>learn-jooq.s1-user</code> table reference
+     * Create a <code>learn-jooq.s1_user</code> table reference
      */
     public S1User() {
-        this(DSL.name("s1-user"), null);
+        this(DSL.name("s1_user"), null);
     }
 
     /**
-     * Create an aliased <code>learn-jooq.s1-user</code> table reference
+     * Create an aliased <code>learn-jooq.s1_user</code> table reference
      */
     public S1User(String alias) {
         this(DSL.name(alias), S1_USER);
     }
 
     /**
-     * Create an aliased <code>learn-jooq.s1-user</code> table reference
+     * Create an aliased <code>learn-jooq.s1_user</code> table reference
      */
     public S1User(Name alias) {
         this(alias, S1_USER);

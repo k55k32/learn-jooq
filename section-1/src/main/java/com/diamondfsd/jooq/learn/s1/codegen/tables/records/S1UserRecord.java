@@ -30,87 +30,87 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class S1UserRecord extends UpdatableRecordImpl<S1UserRecord> implements Record6<Integer, String, String, String, Timestamp, Timestamp> {
 
-    private static final long serialVersionUID = 1501075196;
+    private static final long serialVersionUID = -869409156;
 
     /**
-     * Setter for <code>learn-jooq.s1-user.id</code>. ID
+     * Setter for <code>learn-jooq.s1_user.id</code>. ID
      */
     public void setId(Integer value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>learn-jooq.s1-user.id</code>. ID
+     * Getter for <code>learn-jooq.s1_user.id</code>. ID
      */
     public Integer getId() {
         return (Integer) get(0);
     }
 
     /**
-     * Setter for <code>learn-jooq.s1-user.username</code>.
+     * Setter for <code>learn-jooq.s1_user.username</code>.
      */
     public void setUsername(String value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>learn-jooq.s1-user.username</code>.
+     * Getter for <code>learn-jooq.s1_user.username</code>.
      */
     public String getUsername() {
         return (String) get(1);
     }
 
     /**
-     * Setter for <code>learn-jooq.s1-user.email</code>.
+     * Setter for <code>learn-jooq.s1_user.email</code>.
      */
     public void setEmail(String value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>learn-jooq.s1-user.email</code>.
+     * Getter for <code>learn-jooq.s1_user.email</code>.
      */
     public String getEmail() {
         return (String) get(2);
     }
 
     /**
-     * Setter for <code>learn-jooq.s1-user.address</code>.
+     * Setter for <code>learn-jooq.s1_user.address</code>.
      */
     public void setAddress(String value) {
         set(3, value);
     }
 
     /**
-     * Getter for <code>learn-jooq.s1-user.address</code>.
+     * Getter for <code>learn-jooq.s1_user.address</code>.
      */
     public String getAddress() {
         return (String) get(3);
     }
 
     /**
-     * Setter for <code>learn-jooq.s1-user.create_time</code>.
+     * Setter for <code>learn-jooq.s1_user.create_time</code>.
      */
     public void setCreateTime(Timestamp value) {
         set(4, value);
     }
 
     /**
-     * Getter for <code>learn-jooq.s1-user.create_time</code>.
+     * Getter for <code>learn-jooq.s1_user.create_time</code>.
      */
     public Timestamp getCreateTime() {
         return (Timestamp) get(4);
     }
 
     /**
-     * Setter for <code>learn-jooq.s1-user.update_time</code>.
+     * Setter for <code>learn-jooq.s1_user.update_time</code>.
      */
     public void setUpdateTime(Timestamp value) {
         set(5, value);
     }
 
     /**
-     * Getter for <code>learn-jooq.s1-user.update_time</code>.
+     * Getter for <code>learn-jooq.s1_user.update_time</code>.
      */
     public Timestamp getUpdateTime() {
         return (Timestamp) get(5);
