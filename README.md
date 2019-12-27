@@ -12,7 +12,8 @@ jOOQ的初始化，以及基础的增删查改
 
 - section- 一些常见的jOOQ异常
 
-- section- 自定义jOOQ代码生成规则, 代码生成器说明
+- section- 自定义jOOQ代码生成规则      
+代码生成器的最佳实践，可以将jOOQ生成的路径配置未`target/generated-sources`目录下，脱离源码目录，不受版本控制
 
 - section-  Spring和jOOQ的结合，基础DAO的封装
 

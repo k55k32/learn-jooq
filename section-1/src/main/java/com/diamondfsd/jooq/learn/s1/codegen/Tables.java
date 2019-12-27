@@ -23,7 +23,7 @@ import javax.annotation.Generated;
 public class Tables {
 
     /**
-     * The table <code>learn-jooq.s1-user</code>.
+     * USER TABLE
      */
     public static final S1User S1_USER = S1User.S1_USER;
 }

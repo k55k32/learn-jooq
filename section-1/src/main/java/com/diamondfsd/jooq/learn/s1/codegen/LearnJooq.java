@@ -30,7 +30,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class LearnJooq extends SchemaImpl {
 
-    private static final long serialVersionUID = -511655766;
+    private static final long serialVersionUID = 1330052033;
 
     /**
      * The reference instance of <code>learn-jooq</code>
@@ -38,7 +38,7 @@ public class LearnJooq extends SchemaImpl {
     public static final LearnJooq LEARN_JOOQ = new LearnJooq();
 
     /**
-     * The table <code>learn-jooq.s1-user</code>.
+     * USER TABLE
      */
     public final S1User S1_USER = com.diamondfsd.jooq.learn.s1.codegen.tables.S1User.S1_USER;
 
