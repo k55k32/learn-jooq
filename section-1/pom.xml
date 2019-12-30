@@ -54,7 +54,7 @@
                             <inputSchema>learn-jooq</inputSchema>
                         </database>
                         <target>
-                            <packageName>com.diamondfsd.jooq.learn.s1.codegen</packageName>
+                            <packageName>com.diamondfsd.jooq.learn.codegen</packageName>
                             <directory>/src/main/java</directory>
                         </target>
                     </generator>
