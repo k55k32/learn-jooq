@@ -1,14 +1,10 @@
 package com.diamondfsd.jooq.learn;
 
 import com.alibaba.fastjson.JSONObject;
-import com.diamondfsd.jooq.learn.codegen.tables.S1User;
 import com.diamondfsd.jooq.learn.codegen.tables.records.S1UserRecord;
 import org.jooq.DSLContext;
-import org.jooq.InsertSetMoreStep;
-import org.jooq.Result;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
-import org.jooq.tools.JooqLogger;
 import org.junit.jupiter.api.*;
 
 import java.sql.Connection;
@@ -21,43 +17,12 @@ import java.util.stream.IntStream;
 import static com.diamondfsd.jooq.learn.codegen.Tables.S1_USER;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class UserDAOTest {
-
-    DSLContext dslContext;
-    Connection connection;
-
-    @BeforeAll
-    public void initDSLContext() throws SQLException {
-        String jdbcUrl = "jdbc:mysql://localhost:3306/learn-jooq?serverTimezone=GMT%2B8";
-        String jdbcUsername = "root";
-        String jdbcPassword = "root";
-        connection = DriverManager.getConnection(jdbcUrl, jdbcUsername, jdbcPassword);
-        dslContext = DSL.using(connection, SQLDialect.MYSQL);
-    }
-
-    @BeforeEach
-    public void beginTransaction() throws SQLException {
-        connection.setAutoCommit(false);
-    }
-
-    @AfterEach
-    public void rollbackTransaction() throws SQLException {
-        connection.rollback();
-    }
-
-    @Test
-    public void testConnection() {
-        Integer fetchOneResult = dslContext.select().fetchOne().into(Integer.class);
-        Assertions.assertNotNull(fetchOneResult);
-        Assertions.assertEquals(1, fetchOneResult.intValue());
-    }
-
-
+class UserInsertTest extends BaseTest {
     /**
-     * 批量插入
+     * 插入操作
      */
     @Test
-    public void insertBatch() {
+    public void insertTest() {
         // 使用类似SQL的语法方式，该方法批量插入很方便
         int insertRows = dslContext.insertInto(S1_USER,
                 S1_USER.USERNAME, S1_USER.ADDRESS, S1_USER.EMAIL)
@@ -93,7 +58,6 @@ class UserDAOTest {
         record.setAddress("address hello");
         int recordInsertRows = record.store();
         Assertions.assertEquals(1, recordInsertRows);
-
         // 使用Record接口进行批量插入
         List<S1UserRecord> recordList = IntStream.range(0, 10).mapToObj(i -> {
             S1UserRecord s1UserRecord = new S1UserRecord();
@@ -101,9 +65,6 @@ class UserDAOTest {
             s1UserRecord.setEmail("diamondfsd@gmail.com");
             return s1UserRecord;
         }).collect(Collectors.toList());
-        String jsonString = JSONObject.toJSONString(recordList);
-        List<S1UserRecord> s1UserRecordsFromJson = JSONObject.parseArray(jsonString, S1UserRecord.class);
-
         int[] executeRows = dslContext.batchInsert(recordList).execute();
 
         Assertions.assertEquals(recordList.size(), executeRows.length);

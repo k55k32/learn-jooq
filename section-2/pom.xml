@@ -65,9 +65,6 @@
                         <password>root</password>
                     </jdbc>
                     <generator>
-<!--                        <generate>-->
-<!--                            <pojos>true</pojos>-->
-<!--                        </generate>-->
                         <database>
                             <includes>s1_.*</includes>
                             <inputSchema>learn-jooq</inputSchema>
