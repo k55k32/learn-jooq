@@ -30,6 +30,7 @@ class UserUpdateTest extends BaseTest {
         S1UserRecord record = dslContext.newRecord(S1_USER);
         record.setId(1);
         record.setUsername("usernameUpdate-2");
+        record.setAddress("record-address-2");
         updateRows = record.update();
         Assertions.assertEquals(1, updateRows);
 
@@ -45,5 +46,21 @@ class UserUpdateTest extends BaseTest {
         userRecordList.add(record2);
         int[] execute = dslContext.batchUpdate(userRecordList).execute();
         Assertions.assertArrayEquals(new int[]{1, 1}, execute);
+    }
+
+    /**
+     * 主键为空时使用Record进行更新操作
+     */
+    @Test
+    public void updateNoId() {
+        S1UserRecord record2 = dslContext.newRecord(S1_USER);
+        record2.setUsername("usernameUpdate-noID");
+        int affectedRows = record2.update();
+        Assertions.assertEquals(0, affectedRows);
+
+        String username = dslContext.select().from(S1_USER).where(S1_USER.ID.eq(1))
+                .fetchOneInto(S1UserRecord.class)
+                .getUsername();
+        Assertions.assertNotEquals("usernameUpdate-noID", username);
     }
 }

@@ -43,13 +43,12 @@ class UserInsertTest extends BaseTest {
 
         // 以上两种方式都支持返回自增主键通过returning方法返回主键ID，
         // 如果需要其他的自动生成或者有默认值的字段，可以在returning内添加多个参数进行返回
-        S1UserRecord userRecord = dslContext.insertInto(S1_USER,
+        Integer userId = dslContext.insertInto(S1_USER,
                 S1_USER.USERNAME, S1_USER.ADDRESS, S1_USER.EMAIL)
                 .values("username1", "demo-address1", "diamondfsd@gmail.com")
-                .returning(S1_USER.ID, S1_USER.CREATE_TIME)
-                .fetchOne();
-        Assertions.assertNotNull(userRecord.getId());
-        Assertions.assertNotNull(userRecord.getCreateTime());
+                .returning(S1_USER.ID)
+                .fetchOne().getId();
+        Assertions.assertNotNull(userId);
 
         // 使用Record接口进行插入
         S1UserRecord record = dslContext.newRecord(S1_USER);
@@ -57,6 +56,8 @@ class UserInsertTest extends BaseTest {
         record.setEmail("diamondfsd@gmail.com");
         record.setAddress("address hello");
         int recordInsertRows = record.store();
+        Assertions.assertNotNull(record.getId());
+        Assertions.assertNull(record.getCreateTime());
         Assertions.assertEquals(1, recordInsertRows);
         // 使用Record接口进行批量插入
         List<S1UserRecord> recordList = IntStream.range(0, 10).mapToObj(i -> {
@@ -68,5 +69,27 @@ class UserInsertTest extends BaseTest {
         int[] executeRows = dslContext.batchInsert(recordList).execute();
 
         Assertions.assertEquals(recordList.size(), executeRows.length);
+    }
+
+    @Test
+    public void onDuplicateKeyIgnore() {
+        int execute = dslContext.insertInto(S1_USER,
+                S1_USER.ID, S1_USER.USERNAME)
+                .values(1, "username-1")
+                .onDuplicateKeyIgnore()
+                .execute();
+        Assertions.assertEquals(0, execute);
+    }
+
+    @Test
+    public void onDuplicateKeyUpdate() {
+        int row = dslContext.insertInto(S1_USER)
+                .set(S1_USER.ID, 1)
+                .set(S1_USER.USERNAME, "duplicateKey-update")
+                .set(S1_USER.ADDRESS, "hello world")
+                .onDuplicateKeyUpdate()
+                .set(S1_USER.USERNAME, "duplicateKey-update")
+                .set(S1_USER.ADDRESS, "update")
+                .execute();
     }
 }

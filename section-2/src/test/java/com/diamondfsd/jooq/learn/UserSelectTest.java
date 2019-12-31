@@ -1,11 +1,15 @@
 package com.diamondfsd.jooq.learn;
 
+import com.diamondfsd.jooq.learn.codegen.tables.records.S1UserRecord;
 import org.jooq.Record;
 import org.jooq.Record2;
 import org.jooq.Result;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+
+import java.sql.Timestamp;
+import java.util.List;
 
 import static com.diamondfsd.jooq.learn.codegen.Tables.S1_USER;
 
@@ -16,6 +20,9 @@ class UserSelectTest extends BaseTest {
      */
     @Test
     public void selectTest() {
+        Result<Record> fetch = dslContext.select().from(S1_USER).fetch();
+
+        List<S1UserRecord> result = fetch.into(S1UserRecord.class);
         // 基础查询
         Result<Record> fetchAll = dslContext.select().from(S1_USER)
                 .where(S1_USER.ID.in(1, 2)).fetch();
@@ -25,7 +32,7 @@ class UserSelectTest extends BaseTest {
             Assertions.assertNotNull(record.getValue(S1_USER.ID));
             Assertions.assertNotNull(record.getValue(S1_USER.USERNAME));
             Assertions.assertNotNull(record.getValue(S1_USER.ADDRESS));
-            Assertions.assertNotNull(record.getValue(S1_USER.CREATE_TIME));
+            Timestamp createTime = record.getValue(S1_USER.CREATE_TIME);
             Assertions.assertNotNull(record.getValue(S1_USER.UPDATE_TIME));
         });
 
