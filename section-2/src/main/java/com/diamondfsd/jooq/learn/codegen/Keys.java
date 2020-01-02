@@ -4,8 +4,10 @@
 package com.diamondfsd.jooq.learn.codegen;
 
 
-import com.diamondfsd.jooq.learn.codegen.tables.S1User;
+import com.diamondfsd.jooq.learn.codegen.tables.TS1User;
+import com.diamondfsd.jooq.learn.codegen.tables.TS2UserMessage;
 import com.diamondfsd.jooq.learn.codegen.tables.records.S1UserRecord;
+import com.diamondfsd.jooq.learn.codegen.tables.records.S2UserMessageRecord;
 
 import javax.annotation.Generated;
 
@@ -33,12 +35,14 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final Identity<S1UserRecord, Integer> IDENTITY_S1_USER = Identities0.IDENTITY_S1_USER;
+    public static final Identity<S2UserMessageRecord, Integer> IDENTITY_S2_USER_MESSAGE = Identities0.IDENTITY_S2_USER_MESSAGE;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
     public static final UniqueKey<S1UserRecord> KEY_S1_USER_PRIMARY = UniqueKeys0.KEY_S1_USER_PRIMARY;
+    public static final UniqueKey<S2UserMessageRecord> KEY_S2_USER_MESSAGE_PRIMARY = UniqueKeys0.KEY_S2_USER_MESSAGE_PRIMARY;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
@@ -50,10 +54,12 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     private static class Identities0 {
-        public static Identity<S1UserRecord, Integer> IDENTITY_S1_USER = Internal.createIdentity(S1User.S1_USER, S1User.S1_USER.ID);
+        public static Identity<S1UserRecord, Integer> IDENTITY_S1_USER = Internal.createIdentity(TS1User.S1_USER, TS1User.S1_USER.ID);
+        public static Identity<S2UserMessageRecord, Integer> IDENTITY_S2_USER_MESSAGE = Internal.createIdentity(TS2UserMessage.S2_USER_MESSAGE, TS2UserMessage.S2_USER_MESSAGE.ID);
     }
 
     private static class UniqueKeys0 {
-        public static final UniqueKey<S1UserRecord> KEY_S1_USER_PRIMARY = Internal.createUniqueKey(S1User.S1_USER, "KEY_s1_user_PRIMARY", S1User.S1_USER.ID);
+        public static final UniqueKey<S1UserRecord> KEY_S1_USER_PRIMARY = Internal.createUniqueKey(TS1User.S1_USER, "KEY_s1_user_PRIMARY", TS1User.S1_USER.ID);
+        public static final UniqueKey<S2UserMessageRecord> KEY_S2_USER_MESSAGE_PRIMARY = Internal.createUniqueKey(TS2UserMessage.S2_USER_MESSAGE, "KEY_s2_user_message_PRIMARY", TS2UserMessage.S2_USER_MESSAGE.ID);
     }
 }

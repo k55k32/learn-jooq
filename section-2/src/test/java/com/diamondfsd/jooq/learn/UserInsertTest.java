@@ -10,9 +10,12 @@ import org.junit.jupiter.api.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static com.diamondfsd.jooq.learn.codegen.Tables.S1_USER;
 
@@ -59,6 +62,10 @@ class UserInsertTest extends BaseTest {
         Assertions.assertNotNull(record.getId());
         Assertions.assertNull(record.getCreateTime());
         Assertions.assertEquals(1, recordInsertRows);
+    }
+
+    @Test
+    public void batchInsert() {
         // 使用Record接口进行批量插入
         List<S1UserRecord> recordList = IntStream.range(0, 10).mapToObj(i -> {
             S1UserRecord s1UserRecord = new S1UserRecord();
@@ -67,8 +74,12 @@ class UserInsertTest extends BaseTest {
             return s1UserRecord;
         }).collect(Collectors.toList());
         int[] executeRows = dslContext.batchInsert(recordList).execute();
-
         Assertions.assertEquals(recordList.size(), executeRows.length);
+        for (int i = 0; i < recordList.size(); i++) {
+            S1UserRecord item = recordList.get(i);
+            Assertions.assertEquals("usernameBatchInsert" + i, item.getUsername());
+            Assertions.assertNull(item.getId());
+        }
     }
 
     @Test

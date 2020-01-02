@@ -1,6 +1,7 @@
 package com.diamondfsd.jooq.learn;
 
 import com.diamondfsd.jooq.learn.codegen.tables.records.S1UserRecord;
+import org.jooq.Field;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -33,7 +34,10 @@ class UserUpdateTest extends BaseTest {
         record.setAddress("record-address-2");
         updateRows = record.update();
         Assertions.assertEquals(1, updateRows);
+    }
 
+    @Test
+    public void batchUpdate() {
         // 批量更新
         S1UserRecord record1 = new S1UserRecord();
         record1.setId(1);
@@ -41,6 +45,7 @@ class UserUpdateTest extends BaseTest {
         S1UserRecord record2 = new S1UserRecord();
         record2.setId(2);
         record2.setUsername("batchUsername-2");
+
         List<S1UserRecord> userRecordList = new ArrayList<>();
         userRecordList.add(record1);
         userRecordList.add(record2);
@@ -57,7 +62,6 @@ class UserUpdateTest extends BaseTest {
         record2.setUsername("usernameUpdate-noID");
         int affectedRows = record2.update();
         Assertions.assertEquals(0, affectedRows);
-
         String username = dslContext.select().from(S1_USER).where(S1_USER.ID.eq(1))
                 .fetchOneInto(S1UserRecord.class)
                 .getUsername();

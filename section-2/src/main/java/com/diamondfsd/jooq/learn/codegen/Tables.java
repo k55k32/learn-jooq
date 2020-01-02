@@ -4,7 +4,8 @@
 package com.diamondfsd.jooq.learn.codegen;
 
 
-import com.diamondfsd.jooq.learn.codegen.tables.S1User;
+import com.diamondfsd.jooq.learn.codegen.tables.TS1User;
+import com.diamondfsd.jooq.learn.codegen.tables.TS2UserMessage;
 
 import javax.annotation.Generated;
 
@@ -25,5 +26,10 @@ public class Tables {
     /**
      * USER TABLE
      */
-    public static final S1User S1_USER = S1User.S1_USER;
+    public static final TS1User S1_USER = TS1User.S1_USER;
+
+    /**
+     * 用户消息内容
+     */
+    public static final TS2UserMessage S2_USER_MESSAGE = TS2UserMessage.S2_USER_MESSAGE;
 }

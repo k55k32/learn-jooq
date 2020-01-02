@@ -3,6 +3,7 @@ package com.diamondfsd.jooq.learn;
 import com.diamondfsd.jooq.learn.codegen.tables.records.S1UserRecord;
 import org.jooq.Record;
 import org.jooq.Record2;
+import org.jooq.Record3;
 import org.jooq.Result;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import static com.diamondfsd.jooq.learn.codegen.Tables.S1_USER;
+import static com.diamondfsd.jooq.learn.codegen.tables.TS2UserMessage.S2_USER_MESSAGE;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class UserSelectTest extends BaseTest {
@@ -64,5 +66,26 @@ class UserSelectTest extends BaseTest {
         Record record = recordResult.get(0);
         Assertions.assertEquals(2, record.get(S1_USER.ID));
 
+    }
+
+    /**
+     * 关联查询
+     */
+    @Test
+    public void selectJoinTest() {
+        Result<Record3<String, String, String>> record3Result =
+                dslContext.select(S1_USER.USERNAME,
+                S2_USER_MESSAGE.MESSAGE_TITLE,
+                S2_USER_MESSAGE.MESSAGE_CONTENT)
+                .from(S2_USER_MESSAGE)
+                .leftJoin(S1_USER).on(S1_USER.ID.eq(S2_USER_MESSAGE.USER_ID))
+                .fetch();
+        List<S2UserMessage> userMessagePojoList = record3Result.into(S2UserMessage.class);
+        Assertions.assertFalse(userMessagePojoList.isEmpty());
+        userMessagePojoList.forEach(item -> {
+            Assertions.assertNotNull(item.getUsername());
+            Assertions.assertNotNull(item.getMessageTitle());
+            Assertions.assertNotNull(item.getMessageContent());
+        });
     }
 }

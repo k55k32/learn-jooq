@@ -30,6 +30,12 @@
             <version>${jooq.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-codegen</artifactId>
+            <version>${jooq.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>RELEASE</version>
@@ -80,8 +86,14 @@
                         <password>root</password>
                     </jdbc>
                     <generator>
+                        <strategy>
+                            <name>com.diamondfsd.jooq.learn.CustomGeneratorStrategy</name>
+                        </strategy>
+                        <generate>
+                            <pojos>true</pojos>
+                        </generate>
                         <database>
-                            <includes>s1_.*</includes>
+                            <includes>(s1_.*)|(s2_.*)</includes>
                             <inputSchema>learn-jooq</inputSchema>
                         </database>
                         <target>

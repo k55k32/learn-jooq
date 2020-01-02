@@ -4,7 +4,8 @@
 package com.diamondfsd.jooq.learn.codegen;
 
 
-import com.diamondfsd.jooq.learn.codegen.tables.S1User;
+import com.diamondfsd.jooq.learn.codegen.tables.TS1User;
+import com.diamondfsd.jooq.learn.codegen.tables.TS2UserMessage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +31,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class LearnJooq extends SchemaImpl {
 
-    private static final long serialVersionUID = 211365041;
+    private static final long serialVersionUID = 1223962513;
 
     /**
      * The reference instance of <code>learn-jooq</code>
@@ -40,7 +41,12 @@ public class LearnJooq extends SchemaImpl {
     /**
      * USER TABLE
      */
-    public final S1User S1_USER = com.diamondfsd.jooq.learn.codegen.tables.S1User.S1_USER;
+    public final TS1User S1_USER = com.diamondfsd.jooq.learn.codegen.tables.TS1User.S1_USER;
+
+    /**
+     * 用户消息内容
+     */
+    public final TS2UserMessage S2_USER_MESSAGE = com.diamondfsd.jooq.learn.codegen.tables.TS2UserMessage.S2_USER_MESSAGE;
 
     /**
      * No further instances allowed
@@ -64,6 +70,7 @@ public class LearnJooq extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
-            S1User.S1_USER);
+            TS1User.S1_USER,
+            TS2UserMessage.S2_USER_MESSAGE);
     }
 }

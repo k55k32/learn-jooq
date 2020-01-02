@@ -1,19 +1,17 @@
 ## jOOQ 系列教程源码
 
-- section-1 基础操作   
-jOOQ的初始化，以及基础的增删查改 
+- section-1 如何开始jOOQ
+jOOQ的初始化，介绍基本查询操作
 
-- section-2 更方便的CURD    
-使用jOOQ来帮我们生成JOOQ，
+- section-2 基础CURD    
+介绍常用的CURD操作，使用jOOQ来帮我们生成POJO，
 
-- section-3 关联查询
+- section-3 POJO和Record互相转换，interface生成选项   
+通过POJO和Record互相转换，可以方便的进行数据操作，interface选项，提高转换性能
 
 - section-4 查询的结果集处理
 
-- section- 一些常见的jOOQ异常
-
-- section- 自定义jOOQ代码生成规则      
-代码生成器的最佳实践，可以将jOOQ生成的路径配置未`target/generated-sources`目录下，脱离源码目录，不受版本控制
+- section-  一些常见的jOOQ异常
 
 - section-  Spring和jOOQ的结合，基础DAO的封装
 

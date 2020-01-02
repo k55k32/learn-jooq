@@ -4,7 +4,8 @@
 package com.diamondfsd.jooq.learn.codegen;
 
 
-import com.diamondfsd.jooq.learn.codegen.tables.S1User;
+import com.diamondfsd.jooq.learn.codegen.tables.TS1User;
+import com.diamondfsd.jooq.learn.codegen.tables.TS2UserMessage;
 
 import javax.annotation.Generated;
 
@@ -31,12 +32,14 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     public static final Index S1_USER_PRIMARY = Indexes0.S1_USER_PRIMARY;
+    public static final Index S2_USER_MESSAGE_PRIMARY = Indexes0.S2_USER_MESSAGE_PRIMARY;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
     // -------------------------------------------------------------------------
 
     private static class Indexes0 {
-        public static Index S1_USER_PRIMARY = Internal.createIndex("PRIMARY", S1User.S1_USER, new OrderField[] { S1User.S1_USER.ID }, true);
+        public static Index S1_USER_PRIMARY = Internal.createIndex("PRIMARY", TS1User.S1_USER, new OrderField[] { TS1User.S1_USER.ID }, true);
+        public static Index S2_USER_MESSAGE_PRIMARY = Internal.createIndex("PRIMARY", TS2UserMessage.S2_USER_MESSAGE, new OrderField[] { TS2UserMessage.S2_USER_MESSAGE.ID }, true);
     }
 }
