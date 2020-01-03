@@ -4,6 +4,8 @@ import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 import org.junit.jupiter.api.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,6 +15,8 @@ import java.sql.SQLException;
 public class BaseTest {
     DSLContext dslContext;
     Connection connection;
+
+    Logger log = LoggerFactory.getLogger(this.getClass());
 
     @BeforeAll
     public void initDSLContext() throws SQLException {
