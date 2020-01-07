@@ -8,9 +8,9 @@ jOOQ的初始化，介绍基本查询操作
 
 - section-3 查询的结果集处理
 
-- section-4 Record接口详解，interface生成选项   
+- section-4 Record接口详解
 
-- section-  一些常见的jOOQ异常
+- section-5 性能优化与Dao
 
 - section-  Spring和jOOQ的结合，基础DAO的封装
 
