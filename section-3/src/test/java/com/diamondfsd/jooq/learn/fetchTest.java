@@ -3,6 +3,7 @@ package com.diamondfsd.jooq.learn;
 import com.diamondfsd.jooq.learn.codegen.tables.pojos.S1UserPojo;
 import org.jooq.Record;
 import org.jooq.Result;
+import org.jooq.exception.InvalidResultException;
 import org.jooq.exception.NoDataFoundException;
 import org.jooq.exception.TooManyRowsException;
 import org.junit.jupiter.api.Assertions;
@@ -116,6 +117,14 @@ public class fetchTest extends BaseTest {
                 .fetchMap(S1_USER.ID, S1_USER.USERNAME);
         Assertions.assertTrue(idUserNameMap.containsKey(1));
         Assertions.assertTrue(idUserNameMap.containsKey(2));
+
+        try {
+            Map<Integer, S2UserMessage> integerS2UserMessageMap = dslContext.select().from(S2_USER_MESSAGE)
+                    .fetchMap(S2_USER_MESSAGE.USER_ID, S2UserMessage.class);
+            Assertions.fail("fetch map key must be unique");
+        } catch (InvalidResultException e) {
+            log.info("fetch map key is not unique in result", e);
+        }
     }
 
     @Test
