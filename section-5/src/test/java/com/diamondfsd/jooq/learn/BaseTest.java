@@ -18,6 +18,9 @@ public class BaseTest {
 
     Logger log = LoggerFactory.getLogger(this.getClass());
 
+    private long startTime;
+    private long endTime;
+
     @BeforeAll
     public void initDSLContext() throws SQLException {
         String jdbcUrl = "jdbc:mysql://localhost:3306/learn-jooq?serverTimezone=GMT%2B8";
@@ -40,4 +43,18 @@ public class BaseTest {
     public void rollbackTransaction() throws SQLException {
         connection.rollback();
     }
+
+    public void start() {
+        startTime = System.currentTimeMillis();
+    }
+
+    public void end() {
+        endTime = System.currentTimeMillis();
+    }
+
+    public void endAndPrintTime() {
+        end();
+        log.info("cast times: {} ms", endTime - startTime);
+    }
+
 }
