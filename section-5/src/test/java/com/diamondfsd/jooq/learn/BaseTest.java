@@ -18,6 +18,9 @@ public class BaseTest {
 
     Logger log = LoggerFactory.getLogger(this.getClass());
 
+    private long startTimeNs;
+    private long endTimeNs;
+
     private long startTime;
     private long endTime;
 
@@ -45,16 +48,18 @@ public class BaseTest {
     }
 
     public void start() {
+        startTimeNs = System.nanoTime();
         startTime = System.currentTimeMillis();
     }
 
     public void end() {
+        endTimeNs = System.nanoTime();
         endTime = System.currentTimeMillis();
     }
 
     public void endAndPrintTime() {
         end();
-        log.info("cast times: {} ms", endTime - startTime);
+        log.info("cast times: {} ms, {} nona", endTime - startTime, endTimeNs - startTimeNs);
     }
 
 }

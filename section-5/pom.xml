@@ -95,7 +95,7 @@
                             <interfaces>true</interfaces>
                         </generate>
                         <database>
-                            <includes>(s1_.*)|(s2_.*)</includes>
+                            <includes>(s1_.*)|(s2_.*)|(s4_.*)</includes>
                             <inputSchema>learn-jooq</inputSchema>
                         </database>
                         <target>

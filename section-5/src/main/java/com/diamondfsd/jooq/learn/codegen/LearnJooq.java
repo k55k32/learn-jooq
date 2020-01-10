@@ -6,6 +6,9 @@ package com.diamondfsd.jooq.learn.codegen;
 
 import com.diamondfsd.jooq.learn.codegen.tables.TS1User;
 import com.diamondfsd.jooq.learn.codegen.tables.TS2UserMessage;
+import com.diamondfsd.jooq.learn.codegen.tables.TS4ColumenGt22;
+import com.diamondfsd.jooq.learn.codegen.tables.TS4NoPrimary;
+import com.diamondfsd.jooq.learn.codegen.tables.TS4UnionKey;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,7 +34,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class LearnJooq extends SchemaImpl {
 
-    private static final long serialVersionUID = 1223962513;
+    private static final long serialVersionUID = 282791683;
 
     /**
      * The reference instance of <code>learn-jooq</code>
@@ -47,6 +50,21 @@ public class LearnJooq extends SchemaImpl {
      * 用户消息内容
      */
     public final TS2UserMessage S2_USER_MESSAGE = com.diamondfsd.jooq.learn.codegen.tables.TS2UserMessage.S2_USER_MESSAGE;
+
+    /**
+     * 超过22个字段的表
+     */
+    public final TS4ColumenGt22 S4_COLUMEN_GT22 = com.diamondfsd.jooq.learn.codegen.tables.TS4ColumenGt22.S4_COLUMEN_GT22;
+
+    /**
+     * The table <code>learn-jooq.s4_no_primary</code>.
+     */
+    public final TS4NoPrimary S4_NO_PRIMARY = com.diamondfsd.jooq.learn.codegen.tables.TS4NoPrimary.S4_NO_PRIMARY;
+
+    /**
+     * The table <code>learn-jooq.s4_union_key</code>.
+     */
+    public final TS4UnionKey S4_UNION_KEY = com.diamondfsd.jooq.learn.codegen.tables.TS4UnionKey.S4_UNION_KEY;
 
     /**
      * No further instances allowed
@@ -71,6 +89,9 @@ public class LearnJooq extends SchemaImpl {
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
             TS1User.S1_USER,
-            TS2UserMessage.S2_USER_MESSAGE);
+            TS2UserMessage.S2_USER_MESSAGE,
+            TS4ColumenGt22.S4_COLUMEN_GT22,
+            TS4NoPrimary.S4_NO_PRIMARY,
+            TS4UnionKey.S4_UNION_KEY);
     }
 }

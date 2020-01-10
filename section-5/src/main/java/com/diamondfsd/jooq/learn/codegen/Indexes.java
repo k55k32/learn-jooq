@@ -6,6 +6,8 @@ package com.diamondfsd.jooq.learn.codegen;
 
 import com.diamondfsd.jooq.learn.codegen.tables.TS1User;
 import com.diamondfsd.jooq.learn.codegen.tables.TS2UserMessage;
+import com.diamondfsd.jooq.learn.codegen.tables.TS4ColumenGt22;
+import com.diamondfsd.jooq.learn.codegen.tables.TS4UnionKey;
 
 import javax.annotation.Generated;
 
@@ -33,6 +35,8 @@ public class Indexes {
 
     public static final Index S1_USER_PRIMARY = Indexes0.S1_USER_PRIMARY;
     public static final Index S2_USER_MESSAGE_PRIMARY = Indexes0.S2_USER_MESSAGE_PRIMARY;
+    public static final Index S4_COLUMEN_GT22_PRIMARY = Indexes0.S4_COLUMEN_GT22_PRIMARY;
+    public static final Index S4_UNION_KEY_PRIMARY = Indexes0.S4_UNION_KEY_PRIMARY;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -41,5 +45,7 @@ public class Indexes {
     private static class Indexes0 {
         public static Index S1_USER_PRIMARY = Internal.createIndex("PRIMARY", TS1User.S1_USER, new OrderField[] { TS1User.S1_USER.ID }, true);
         public static Index S2_USER_MESSAGE_PRIMARY = Internal.createIndex("PRIMARY", TS2UserMessage.S2_USER_MESSAGE, new OrderField[] { TS2UserMessage.S2_USER_MESSAGE.ID }, true);
+        public static Index S4_COLUMEN_GT22_PRIMARY = Internal.createIndex("PRIMARY", TS4ColumenGt22.S4_COLUMEN_GT22, new OrderField[] { TS4ColumenGt22.S4_COLUMEN_GT22.ID }, true);
+        public static Index S4_UNION_KEY_PRIMARY = Internal.createIndex("PRIMARY", TS4UnionKey.S4_UNION_KEY, new OrderField[] { TS4UnionKey.S4_UNION_KEY.UK_1, TS4UnionKey.S4_UNION_KEY.UK_2 }, true);
     }
 }
