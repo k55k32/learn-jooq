@@ -10,7 +10,7 @@ jOOQ的初始化，介绍基本查询操作
 
 - section-4 Record接口详解
 
-- section-5 性能优化与Dao
+- section-5 interface 和 DAO
 
 - section-  Spring和jOOQ的结合，基础DAO的封装
 
