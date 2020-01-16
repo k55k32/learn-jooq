@@ -11,11 +11,9 @@ public class UserService {
     @Autowired
     private S1UserDao s1UserDao;
 
-    @Transactional
-    public S1UserPojo save() {
-        S1UserPojo userPojo = new S1UserPojo();
-        userPojo.setUsername("service insert");
+    @Transactional(rollbackFor = Throwable.class)
+    public S1UserPojo saveAndThrowError(S1UserPojo userPojo) {
         s1UserDao.insert(userPojo);
-        return userPojo;
+        throw new RuntimeException("test throw roll back");
     }
 }
