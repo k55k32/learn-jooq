@@ -1,5 +1,6 @@
 package com.diamondfsd.jooq.learn;
 
+import com.diamondfsd.jooq.learn.codegen.learn_jooq.tables.daos.S1UserDao;
 import org.jooq.DSLContext;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -12,11 +13,4 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @Rollback
 public class BaseTest {
-    @Autowired
-    private DSLContext dslContext;
-
-    @Test
-    public void  dslContextNotNull() {
-        Assertions.assertNotNull(dslContext);
-    }
 }
