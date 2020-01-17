@@ -4,7 +4,6 @@
 package com.diamondfsd.jooq.learn.codegen.learn_jooq;
 
 
-import com.diamondfsd.jooq.learn.codegen.DefaultCatalog;
 import com.diamondfsd.jooq.learn.codegen.learn_jooq.tables.TS1User;
 import com.diamondfsd.jooq.learn.codegen.learn_jooq.tables.TS2UserMessage;
 import com.diamondfsd.jooq.learn.codegen.learn_jooq.tables.TS4ColumenGt22;
@@ -35,7 +34,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class LearnJooq extends SchemaImpl {
 
-    private static final long serialVersionUID = -1383186457;
+    private static final long serialVersionUID = -937642561;
 
     /**
      * The reference instance of <code>learn-jooq</code>

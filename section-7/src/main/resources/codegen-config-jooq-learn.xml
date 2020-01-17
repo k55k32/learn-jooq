@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <jdbc>
+        <driver>com.mysql.cj.jdbc.Driver</driver>
+        <url>jdbc:mysql://127.0.0.1:3306/learn-jooq?serverTimezone=GMT%2B8</url>
+        <user>root</user>
+        <password>root</password>
+    </jdbc>
+    <generator>
+        <strategy>
+            <name>com.diamondfsd.jooq.learn.CustomGeneratorStrategy</name>
+        </strategy>
+        <generate>
+            <pojos>true</pojos>
+            <daos>true</daos>
+            <interfaces>true</interfaces>
+            <springAnnotations>true</springAnnotations>
+        </generate>
+        <database>
+            <includes>(s1_.*)|(s2_.*)|(s4_.*)</includes>
+            <inputSchema>learn-jooq</inputSchema>
+        </database>
+        <target>
+            <packageName>com.diamondfsd.jooq.learn.codegen.learn_jooq</packageName>
+            <directory>/src/main/java</directory>
+        </target>
+    </generator>
+</configuration>

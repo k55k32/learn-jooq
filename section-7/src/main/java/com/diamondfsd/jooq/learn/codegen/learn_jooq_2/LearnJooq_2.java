@@ -4,7 +4,6 @@
 package com.diamondfsd.jooq.learn.codegen.learn_jooq_2;
 
 
-import com.diamondfsd.jooq.learn.codegen.DefaultCatalog;
 import com.diamondfsd.jooq.learn.codegen.learn_jooq_2.tables.TS7User;
 
 import java.util.ArrayList;
@@ -31,7 +30,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class LearnJooq_2 extends SchemaImpl {
 
-    private static final long serialVersionUID = -311497309;
+    private static final long serialVersionUID = -1776879995;
 
     /**
      * The reference instance of <code>learn-jooq-2</code>
