@@ -10,7 +10,6 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringJUnitConfig(Section7Main.class)
-@Transactional
 @Rollback
 public class BaseTest {
 }

@@ -24,6 +24,9 @@ import javax.sql.DataSource;
 @PropertySource("classpath:jdbc.properties")
 public class DataSourceConfig {
 
+    public static final String TX_LEARN_JOOQ = "learnJooqTransactionManager";
+    public static final String TX_LEARN_JOOQ_2 = "learnJooq2TransactionManager";
+
     @Bean
     @Primary
     public PlatformTransactionManager learnJooqTransactionManager(DataSource dataSource) {
