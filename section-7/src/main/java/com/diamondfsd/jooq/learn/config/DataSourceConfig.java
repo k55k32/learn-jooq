@@ -2,6 +2,8 @@ package com.diamondfsd.jooq.learn.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +25,15 @@ import javax.sql.DataSource;
 public class DataSourceConfig {
 
     @Bean
-    public PlatformTransactionManager transactionManager(DataSource dataSource) {
+    @Primary
+    public PlatformTransactionManager learnJooqTransactionManager(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
+    }
+
+    @Bean
+    public PlatformTransactionManager learnJooq2TransactionManager(
+            @Autowired
+            @Qualifier("learnJooq2DataSource") DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
 
