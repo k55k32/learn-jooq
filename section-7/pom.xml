@@ -40,7 +40,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>RELEASE</version>
+            <version>5.6.0-RC1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -103,6 +103,7 @@
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -120,21 +121,13 @@
                 <version>${jooq.version}</version>
                 <executions>
                     <execution>
-                        <id>exec-1</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
+                        <id>learn-jooq</id>
                         <configuration>
                             <configurationFile>src/main/resources/codegen-config-jooq-learn.xml</configurationFile>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>exec-2</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
+                        <id>learn-jooq-2</id>
                         <configuration>
                             <configurationFile>src/main/resources/codegen-config-jooq-learn-2.xml</configurationFile>
                         </configuration>
