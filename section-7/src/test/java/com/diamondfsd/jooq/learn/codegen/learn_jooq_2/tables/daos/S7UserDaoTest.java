@@ -12,13 +12,14 @@ import static com.diamondfsd.jooq.learn.config.DataSourceConfig.TX_LEARN_JOOQ_2;
 @Transactional(TX_LEARN_JOOQ_2)
 class S7UserDaoTest extends BaseTest {
     @Autowired
-    S7UserDao userDao;
+    S7UserDao s7UserDao;
 
     @Test
+    @Transactional(TX_LEARN_JOOQ_2)
     public void insert() {
         S7UserPojo s7UserPojo = new S7UserPojo();
         s7UserPojo.setUsername("s7username");
-        userDao.insert(s7UserPojo);
+        s7UserDao.insert(s7UserPojo);
         Assertions.assertNotNull(s7UserPojo.getId());
     }
 

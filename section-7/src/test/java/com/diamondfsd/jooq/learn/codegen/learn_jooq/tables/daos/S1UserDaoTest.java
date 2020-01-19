@@ -7,16 +7,18 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.diamondfsd.jooq.learn.config.DataSourceConfig.TX_LEARN_JOOQ;
+
 class S1UserDaoTest extends BaseTest {
     @Autowired
-    S1UserDao userDao;
+    S1UserDao s1UserDao;
 
     @Test
-    @Transactional
+    @Transactional(TX_LEARN_JOOQ)
     public void insert() {
         S1UserPojo s1UserPojo = new S1UserPojo();
         s1UserPojo.setUsername("username");
-        userDao.insert(s1UserPojo);
+        s1UserDao.insert(s1UserPojo);
         Assertions.assertNotNull(s1UserPojo.getId());
     }
 

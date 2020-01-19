@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy;
@@ -28,8 +27,10 @@ public class DataSourceConfig {
     public static final String TX_LEARN_JOOQ_2 = "learnJooq2TransactionManager";
 
     @Bean
-    @Primary
-    public PlatformTransactionManager learnJooqTransactionManager(DataSource dataSource) {
+    public PlatformTransactionManager learnJooqTransactionManager(
+            @Autowired
+            @Qualifier("learnJooqDataSource")
+                    DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
     }
 
@@ -41,7 +42,6 @@ public class DataSourceConfig {
     }
 
     @Bean
-    @Primary
     public DataSource learnJooqDataSource(
             @Value("${datasource1.jdbc.url}")
                     String url,
@@ -70,5 +70,4 @@ public class DataSourceConfig {
         config.setPassword(password);
         return new TransactionAwareDataSourceProxy(new HikariDataSource(config));
     }
-
 }
