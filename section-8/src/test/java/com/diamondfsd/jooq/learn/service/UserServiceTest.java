@@ -3,9 +3,10 @@ package com.diamondfsd.jooq.learn.service;
 import com.diamondfsd.jooq.learn.BaseTest;
 import com.diamondfsd.jooq.learn.codegen.tables.daos.S1UserDao;
 import com.diamondfsd.jooq.learn.codegen.tables.pojos.S1UserPojo;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.util.List;
 
