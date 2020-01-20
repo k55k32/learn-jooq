@@ -12,9 +12,11 @@ jOOQ的初始化，介绍基本查询操作
 
 - section-5 interface 和 DAO
 
-- section-  Spring和jOOQ的结合，基础DAO的封装
+- section-6  Spring和jOOQ的整合
 
-- section-  多数据源支持
+- section-7  多数据源支持
+
+- section-8  Spring Boot和jOOQ整合
 
 - section-  jOOQ的分页查询封装
 
