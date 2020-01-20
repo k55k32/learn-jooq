@@ -1,0 +1,88 @@
+package com.diamondfsd.jooq.learn.extend;
+
+import org.jooq.*;
+import org.jooq.conf.ParamType;
+import org.jooq.impl.DAOImpl;
+import org.jooq.impl.DSL;
+
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * @author Diamond
+ */
+public abstract class AbstractDAOExtendImpl<R extends UpdatableRecord<R>, P, T> extends DAOImpl<R, P, T>
+        implements ExtendDao<R, P, T> {
+
+    protected AbstractDAOExtendImpl(Table<R> table, Class<P> type) {
+        super(table, type);
+    }
+
+    protected AbstractDAOExtendImpl(Table<R> table, Class<P> type, Configuration configuration) {
+        super(table, type, configuration);
+    }
+
+    @Override
+    public DSLContext create() {
+        return DSL.using(configuration());
+    }
+
+    @Override
+    public P fetchOne(Condition condition) {
+        return create().selectFrom(getTable())
+                .where(condition)
+                .orderBy(getTable().getPrimaryKey().getFields())
+                .fetchOne(mapper());
+    }
+
+    @Override
+    public Optional<P> fetchOneOptional(Condition condition) {
+        return Optional.ofNullable(fetchOne(condition));
+    }
+
+    @Override
+    public List<P> fetch(Condition condition, SortField<?>... sortFields) {
+        return create().selectFrom(getTable())
+                .where(condition)
+                .orderBy(sortFields)
+                .fetch(mapper());
+    }
+
+    @Override
+    public PageResult<P> fetchPage(PageResult<P> pageResult, Condition condition, SortField<?>... sortFields) {
+        return fetchPage(pageResult, create().selectFrom(getTable())
+                .where(condition)
+                .orderBy(sortFields));
+    }
+
+    @Override
+    public PageResult<P> fetchPage(PageResult<P> pageResult, SelectLimitStep<?> selectLimitStep) {
+        return fetchPage(pageResult, selectLimitStep, r -> r.into(getType()));
+    }
+
+    @Override
+    public <O> PageResult<O> fetchPage(PageResult<P> pageResult, SelectLimitStep<?> selectLimitStep,
+                                       RecordMapper<? super Record, O> mapper) {
+        int size = pageResult.getPageSize();
+        int start = (pageResult.getCurrentPage() - 1) * size;
+        String pageSql = selectLimitStep.getSQL(ParamType.INLINED);
+        String SELECT = "select";
+
+        pageSql = SELECT + " SQL_CALC_FOUND_ROWS " + pageSql.substring(pageSql.indexOf(SELECT) + SELECT.length())
+                + " limit ?, ? ";
+
+        List<O> resultList = create().fetch(pageSql, start, size).map(mapper);
+        Long total = create().fetchOne("SELECT FOUND_ROWS()").into(Long.class);
+        PageResult<O> result = new PageResult<>();
+        result.setData(resultList);
+        result.setCurrentPage(pageResult.getCurrentPage());
+        result.setPageSize(size);
+        result.setTotal(total);
+        return result;
+    }
+
+    @Override
+    public <O> PageResult<O> fetchPage(PageResult<P> pageResult, SelectLimitStep<?> selectLimitStep, Class<O> pojoType) {
+        return fetchPage(pageResult, selectLimitStep, r -> r.into(pojoType));
+    }
+}
