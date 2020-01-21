@@ -24,7 +24,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class S1UserPojo implements IS1User {
 
-    private static final long serialVersionUID = -494698252;
+    private static final long serialVersionUID = -1773810920;
 
     private Integer   id;
     private String    username;

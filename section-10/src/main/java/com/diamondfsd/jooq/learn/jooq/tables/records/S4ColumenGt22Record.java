@@ -28,7 +28,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class S4ColumenGt22Record extends UpdatableRecordImpl<S4ColumenGt22Record> implements IS4ColumenGt22 {
 
-    private static final long serialVersionUID = 1303428101;
+    private static final long serialVersionUID = -978228327;
 
     /**
      * Setter for <code>learn-jooq.s4_columen_gt22.id</code>. id

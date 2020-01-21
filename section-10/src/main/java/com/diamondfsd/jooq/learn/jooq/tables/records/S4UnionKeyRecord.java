@@ -31,7 +31,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class S4UnionKeyRecord extends UpdatableRecordImpl<S4UnionKeyRecord> implements Record4<Integer, Integer, Timestamp, Timestamp>, IS4UnionKey {
 
-    private static final long serialVersionUID = 2023176460;
+    private static final long serialVersionUID = 150718312;
 
     /**
      * Setter for <code>learn-jooq.s4_union_key.uk_1</code>. 联合ID1

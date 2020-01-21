@@ -2,8 +2,8 @@ package com.diamondfsd.jooq.learn.extend;
 
 import com.diamondfsd.jooq.learn.jooq.tables.daos.S1UserDao;
 import com.diamondfsd.jooq.learn.jooq.tables.daos.S9NewsDao;
-import com.diamondfsd.jooq.learn.jooq.tables.pojos.S1UserPojo;
-import com.diamondfsd.jooq.learn.jooq.tables.pojos.S9NewsPojo;
+import com.diamondfsd.jooq.learn.pojos.S1User;
+import com.diamondfsd.jooq.learn.pojos.S9News;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Assertions;
@@ -40,51 +40,51 @@ class AbstractExtendDAOImplTest {
 
     @Test
     void fetchOne() {
-        S1UserPojo s1UserPojo = s1UserDao.fetchOne(S1_USER.USERNAME.eq("demo1"));
-        Assertions.assertNotNull(s1UserPojo);
+        S1User s1User = s1UserDao.fetchOne(S1_USER.USERNAME.eq("demo1"));
+        Assertions.assertNotNull(s1User);
     }
 
     @Test
     void fetchOneOptional() {
-        Optional<S1UserPojo> s1UserPojo =
+        Optional<S1User> s1User =
                 s1UserDao.fetchOneOptional(S1_USER.ID.eq(0));
-        Assertions.assertFalse(s1UserPojo.isPresent());
+        Assertions.assertFalse(s1User.isPresent());
     }
 
     @Test
     void fetch() {
-        List<S1UserPojo> fetch = s1UserDao.fetch(DSL.noCondition(), S1_USER.ID.desc());
+        List<S1User> fetch = s1UserDao.fetch(DSL.noCondition(), S1_USER.ID.desc());
         Assertions.assertTrue(fetch.size() >= 2);
         Assertions.assertTrue(fetch.get(0).getId() > fetch.get(1).getId());
     }
 
     @Test
     void fetchPage() {
-        PageResult<S9NewsPojo> pageQuery = new PageResult<>(1, 10);
-        PageResult<S9NewsPojo> pageResult = newsDao.fetchPage(pageQuery, DSL.noCondition(), S9_NEWS.ID.desc());
+        PageResult<S9News> pageQuery = new PageResult<>(1, 10);
+        PageResult<S9News> pageResult = newsDao.fetchPage(pageQuery, DSL.noCondition(), S9_NEWS.ID.desc());
         Assertions.assertTrue(pageResult.getTotal() > 10);
-        List<S9NewsPojo> pageData = pageResult.getData();
+        List<S9News> pageData = pageResult.getData();
         Assertions.assertNotNull(pageData);
         Assertions.assertEquals(10, pageData.size());
         Assertions.assertEquals(1, pageResult.getCurrentPage());
         for (int i = 0; i < pageData.size() - 1; i++) {
-            S9NewsPojo curr = pageData.get(i);
-            S9NewsPojo next = pageData.get(i + 1);
+            S9News curr = pageData.get(i);
+            S9News next = pageData.get(i + 1);
             Assertions.assertTrue(curr.getId() > next.getId());
         }
 
-        PageResult<S9NewsPojo> s9NewsPojoPageResult = newsDao.fetchPage(pageQuery,
+        PageResult<S9News> s9NewsPageResult = newsDao.fetchPage(pageQuery,
                 newsDao.create().select(S9_NEWS.TITLE, S9_NEWS.CONTENT)
                         .from(S9_NEWS)
                         .where(S9_NEWS.ID.le(5))
-                        .orderBy(S9_NEWS.ID.desc()), S9NewsPojo.class);
+                        .orderBy(S9_NEWS.ID.desc()), S9News.class);
 
-        Assertions.assertEquals(5, s9NewsPojoPageResult.getTotal());
-        Assertions.assertEquals(5, s9NewsPojoPageResult.getData().size());
-        Assertions.assertEquals(10, s9NewsPojoPageResult.getPageSize());
-        Assertions.assertEquals(1, s9NewsPojoPageResult.getCurrentPage());
+        Assertions.assertEquals(5, s9NewsPageResult.getTotal());
+        Assertions.assertEquals(5, s9NewsPageResult.getData().size());
+        Assertions.assertEquals(10, s9NewsPageResult.getPageSize());
+        Assertions.assertEquals(1, s9NewsPageResult.getCurrentPage());
 
-        PageResult<S9NewsPojo> sizeZeroResult = newsDao.fetchPage(new PageResult<>(1, 0), DSL.noCondition());
+        PageResult<S9News> sizeZeroResult = newsDao.fetchPage(new PageResult<>(1, 0), DSL.noCondition());
         Assertions.assertNotNull(sizeZeroResult.getData());
         Assertions.assertTrue(sizeZeroResult.getData().isEmpty());
         Assertions.assertEquals(0, sizeZeroResult.getTotal());

@@ -35,7 +35,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class LearnJooq extends SchemaImpl {
 
-    private static final long serialVersionUID = -394269006;
+    private static final long serialVersionUID = 679480704;
 
     /**
      * The reference instance of <code>learn-jooq</code>

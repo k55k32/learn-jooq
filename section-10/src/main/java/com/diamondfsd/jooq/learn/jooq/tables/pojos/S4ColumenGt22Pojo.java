@@ -24,7 +24,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class S4ColumenGt22Pojo implements IS4ColumenGt22 {
 
-    private static final long serialVersionUID = 2091608181;
+    private static final long serialVersionUID = -1389550183;
 
     private Integer   id;
     private Integer   column_1;

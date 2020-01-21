@@ -24,7 +24,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class S2UserMessagePojo implements IS2UserMessage {
 
-    private static final long serialVersionUID = 53023128;
+    private static final long serialVersionUID = 1238187964;
 
     private Integer   id;
     private Integer   userId;

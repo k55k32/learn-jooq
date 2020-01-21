@@ -4,10 +4,10 @@
 package com.diamondfsd.jooq.learn.jooq.tables.daos;
 
 
-import com.diamondfsd.jooq.learn.jooq.tables.TS4UnionKey;
-import com.diamondfsd.jooq.learn.jooq.tables.pojos.S4UnionKeyPojo;
-import com.diamondfsd.jooq.learn.jooq.tables.records.S4UnionKeyRecord;
 import com.diamondfsd.jooq.learn.extend.AbstractExtendDAOImpl;
+import com.diamondfsd.jooq.learn.jooq.tables.TS4UnionKey;
+import com.diamondfsd.jooq.learn.jooq.tables.records.S4UnionKeyRecord;
+import com.diamondfsd.jooq.learn.pojos.S4UnionKey;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -32,13 +32,13 @@ import org.springframework.stereotype.Repository;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class S4UnionKeyDao extends AbstractExtendDAOImpl<S4UnionKeyRecord, S4UnionKeyPojo, Record2<Integer, Integer>> {
+public class S4UnionKeyDao extends AbstractExtendDAOImpl<S4UnionKeyRecord, S4UnionKey, Record2<Integer, Integer>> {
 
     /**
      * Create a new S4UnionKeyDao without any configuration
      */
     public S4UnionKeyDao() {
-        super(TS4UnionKey.S4_UNION_KEY, S4UnionKeyPojo.class);
+        super(TS4UnionKey.S4_UNION_KEY, S4UnionKey.class);
     }
 
     /**
@@ -46,67 +46,67 @@ public class S4UnionKeyDao extends AbstractExtendDAOImpl<S4UnionKeyRecord, S4Uni
      */
     @Autowired
     public S4UnionKeyDao(Configuration configuration) {
-        super(TS4UnionKey.S4_UNION_KEY, S4UnionKeyPojo.class, configuration);
+        super(TS4UnionKey.S4_UNION_KEY, S4UnionKey.class, configuration);
     }
 
     @Override
-    public Record2<Integer, Integer> getId(S4UnionKeyPojo object) {
+    public Record2<Integer, Integer> getId(S4UnionKey object) {
         return compositeKeyRecord(object.getUk_1(), object.getUk_2());
     }
 
     /**
      * Fetch records that have <code>uk_1 BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<S4UnionKeyPojo> fetchRangeOfUk_1(Integer lowerInclusive, Integer upperInclusive) {
+    public List<S4UnionKey> fetchRangeOfUk_1(Integer lowerInclusive, Integer upperInclusive) {
         return fetchRange(TS4UnionKey.S4_UNION_KEY.UK_1, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>uk_1 IN (values)</code>
      */
-    public List<S4UnionKeyPojo> fetchByUk_1(Integer... values) {
+    public List<S4UnionKey> fetchByUk_1(Integer... values) {
         return fetch(TS4UnionKey.S4_UNION_KEY.UK_1, values);
     }
 
     /**
      * Fetch records that have <code>uk_2 BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<S4UnionKeyPojo> fetchRangeOfUk_2(Integer lowerInclusive, Integer upperInclusive) {
+    public List<S4UnionKey> fetchRangeOfUk_2(Integer lowerInclusive, Integer upperInclusive) {
         return fetchRange(TS4UnionKey.S4_UNION_KEY.UK_2, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>uk_2 IN (values)</code>
      */
-    public List<S4UnionKeyPojo> fetchByUk_2(Integer... values) {
+    public List<S4UnionKey> fetchByUk_2(Integer... values) {
         return fetch(TS4UnionKey.S4_UNION_KEY.UK_2, values);
     }
 
     /**
      * Fetch records that have <code>create_time BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<S4UnionKeyPojo> fetchRangeOfCreateTime(Timestamp lowerInclusive, Timestamp upperInclusive) {
+    public List<S4UnionKey> fetchRangeOfCreateTime(Timestamp lowerInclusive, Timestamp upperInclusive) {
         return fetchRange(TS4UnionKey.S4_UNION_KEY.CREATE_TIME, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>create_time IN (values)</code>
      */
-    public List<S4UnionKeyPojo> fetchByCreateTime(Timestamp... values) {
+    public List<S4UnionKey> fetchByCreateTime(Timestamp... values) {
         return fetch(TS4UnionKey.S4_UNION_KEY.CREATE_TIME, values);
     }
 
     /**
      * Fetch records that have <code>update_time BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<S4UnionKeyPojo> fetchRangeOfUpdateTime(Timestamp lowerInclusive, Timestamp upperInclusive) {
+    public List<S4UnionKey> fetchRangeOfUpdateTime(Timestamp lowerInclusive, Timestamp upperInclusive) {
         return fetchRange(TS4UnionKey.S4_UNION_KEY.UPDATE_TIME, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>update_time IN (values)</code>
      */
-    public List<S4UnionKeyPojo> fetchByUpdateTime(Timestamp... values) {
+    public List<S4UnionKey> fetchByUpdateTime(Timestamp... values) {
         return fetch(TS4UnionKey.S4_UNION_KEY.UPDATE_TIME, values);
     }
 }

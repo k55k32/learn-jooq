@@ -4,10 +4,10 @@
 package com.diamondfsd.jooq.learn.jooq.tables.daos;
 
 
-import com.diamondfsd.jooq.learn.jooq.tables.TS9News;
-import com.diamondfsd.jooq.learn.jooq.tables.pojos.S9NewsPojo;
-import com.diamondfsd.jooq.learn.jooq.tables.records.S9NewsRecord;
 import com.diamondfsd.jooq.learn.extend.AbstractExtendDAOImpl;
+import com.diamondfsd.jooq.learn.jooq.tables.TS9News;
+import com.diamondfsd.jooq.learn.jooq.tables.records.S9NewsRecord;
+import com.diamondfsd.jooq.learn.pojos.S9News;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -31,13 +31,13 @@ import org.springframework.stereotype.Repository;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class S9NewsDao extends AbstractExtendDAOImpl<S9NewsRecord, S9NewsPojo, Integer> {
+public class S9NewsDao extends AbstractExtendDAOImpl<S9NewsRecord, S9News, Integer> {
 
     /**
      * Create a new S9NewsDao without any configuration
      */
     public S9NewsDao() {
-        super(TS9News.S9_NEWS, S9NewsPojo.class);
+        super(TS9News.S9_NEWS, S9News.class);
     }
 
     /**
@@ -45,88 +45,88 @@ public class S9NewsDao extends AbstractExtendDAOImpl<S9NewsRecord, S9NewsPojo, I
      */
     @Autowired
     public S9NewsDao(Configuration configuration) {
-        super(TS9News.S9_NEWS, S9NewsPojo.class, configuration);
+        super(TS9News.S9_NEWS, S9News.class, configuration);
     }
 
     @Override
-    public Integer getId(S9NewsPojo object) {
+    public Integer getId(S9News object) {
         return object.getId();
     }
 
     /**
      * Fetch records that have <code>id BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<S9NewsPojo> fetchRangeOfId(Integer lowerInclusive, Integer upperInclusive) {
+    public List<S9News> fetchRangeOfId(Integer lowerInclusive, Integer upperInclusive) {
         return fetchRange(TS9News.S9_NEWS.ID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>id IN (values)</code>
      */
-    public List<S9NewsPojo> fetchById(Integer... values) {
+    public List<S9News> fetchById(Integer... values) {
         return fetch(TS9News.S9_NEWS.ID, values);
     }
 
     /**
      * Fetch a unique record that has <code>id = value</code>
      */
-    public S9NewsPojo fetchOneById(Integer value) {
+    public S9News fetchOneById(Integer value) {
         return fetchOne(TS9News.S9_NEWS.ID, value);
     }
 
     /**
      * Fetch records that have <code>title BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<S9NewsPojo> fetchRangeOfTitle(String lowerInclusive, String upperInclusive) {
+    public List<S9News> fetchRangeOfTitle(String lowerInclusive, String upperInclusive) {
         return fetchRange(TS9News.S9_NEWS.TITLE, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>title IN (values)</code>
      */
-    public List<S9NewsPojo> fetchByTitle(String... values) {
+    public List<S9News> fetchByTitle(String... values) {
         return fetch(TS9News.S9_NEWS.TITLE, values);
     }
 
     /**
      * Fetch records that have <code>content BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<S9NewsPojo> fetchRangeOfContent(String lowerInclusive, String upperInclusive) {
+    public List<S9News> fetchRangeOfContent(String lowerInclusive, String upperInclusive) {
         return fetchRange(TS9News.S9_NEWS.CONTENT, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>content IN (values)</code>
      */
-    public List<S9NewsPojo> fetchByContent(String... values) {
+    public List<S9News> fetchByContent(String... values) {
         return fetch(TS9News.S9_NEWS.CONTENT, values);
     }
 
     /**
      * Fetch records that have <code>create_time BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<S9NewsPojo> fetchRangeOfCreateTime(Timestamp lowerInclusive, Timestamp upperInclusive) {
+    public List<S9News> fetchRangeOfCreateTime(Timestamp lowerInclusive, Timestamp upperInclusive) {
         return fetchRange(TS9News.S9_NEWS.CREATE_TIME, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>create_time IN (values)</code>
      */
-    public List<S9NewsPojo> fetchByCreateTime(Timestamp... values) {
+    public List<S9News> fetchByCreateTime(Timestamp... values) {
         return fetch(TS9News.S9_NEWS.CREATE_TIME, values);
     }
 
     /**
      * Fetch records that have <code>update_time BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<S9NewsPojo> fetchRangeOfUpdateTime(Timestamp lowerInclusive, Timestamp upperInclusive) {
+    public List<S9News> fetchRangeOfUpdateTime(Timestamp lowerInclusive, Timestamp upperInclusive) {
         return fetchRange(TS9News.S9_NEWS.UPDATE_TIME, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>update_time IN (values)</code>
      */
-    public List<S9NewsPojo> fetchByUpdateTime(Timestamp... values) {
+    public List<S9News> fetchByUpdateTime(Timestamp... values) {
         return fetch(TS9News.S9_NEWS.UPDATE_TIME, values);
     }
 }

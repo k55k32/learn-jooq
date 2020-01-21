@@ -4,10 +4,10 @@
 package com.diamondfsd.jooq.learn.jooq.tables.daos;
 
 
-import com.diamondfsd.jooq.learn.jooq.tables.TS1User;
-import com.diamondfsd.jooq.learn.jooq.tables.pojos.S1UserPojo;
-import com.diamondfsd.jooq.learn.jooq.tables.records.S1UserRecord;
 import com.diamondfsd.jooq.learn.extend.AbstractExtendDAOImpl;
+import com.diamondfsd.jooq.learn.jooq.tables.TS1User;
+import com.diamondfsd.jooq.learn.jooq.tables.records.S1UserRecord;
+import com.diamondfsd.jooq.learn.pojos.S1User;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -31,13 +31,13 @@ import org.springframework.stereotype.Repository;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class S1UserDao extends AbstractExtendDAOImpl<S1UserRecord, S1UserPojo, Integer> {
+public class S1UserDao extends AbstractExtendDAOImpl<S1UserRecord, S1User, Integer> {
 
     /**
      * Create a new S1UserDao without any configuration
      */
     public S1UserDao() {
-        super(TS1User.S1_USER, S1UserPojo.class);
+        super(TS1User.S1_USER, S1User.class);
     }
 
     /**
@@ -45,102 +45,102 @@ public class S1UserDao extends AbstractExtendDAOImpl<S1UserRecord, S1UserPojo, I
      */
     @Autowired
     public S1UserDao(Configuration configuration) {
-        super(TS1User.S1_USER, S1UserPojo.class, configuration);
+        super(TS1User.S1_USER, S1User.class, configuration);
     }
 
     @Override
-    public Integer getId(S1UserPojo object) {
+    public Integer getId(S1User object) {
         return object.getId();
     }
 
     /**
      * Fetch records that have <code>id BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<S1UserPojo> fetchRangeOfId(Integer lowerInclusive, Integer upperInclusive) {
+    public List<S1User> fetchRangeOfId(Integer lowerInclusive, Integer upperInclusive) {
         return fetchRange(TS1User.S1_USER.ID, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>id IN (values)</code>
      */
-    public List<S1UserPojo> fetchById(Integer... values) {
+    public List<S1User> fetchById(Integer... values) {
         return fetch(TS1User.S1_USER.ID, values);
     }
 
     /**
      * Fetch a unique record that has <code>id = value</code>
      */
-    public S1UserPojo fetchOneById(Integer value) {
+    public S1User fetchOneById(Integer value) {
         return fetchOne(TS1User.S1_USER.ID, value);
     }
 
     /**
      * Fetch records that have <code>username BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<S1UserPojo> fetchRangeOfUsername(String lowerInclusive, String upperInclusive) {
+    public List<S1User> fetchRangeOfUsername(String lowerInclusive, String upperInclusive) {
         return fetchRange(TS1User.S1_USER.USERNAME, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>username IN (values)</code>
      */
-    public List<S1UserPojo> fetchByUsername(String... values) {
+    public List<S1User> fetchByUsername(String... values) {
         return fetch(TS1User.S1_USER.USERNAME, values);
     }
 
     /**
      * Fetch records that have <code>email BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<S1UserPojo> fetchRangeOfEmail(String lowerInclusive, String upperInclusive) {
+    public List<S1User> fetchRangeOfEmail(String lowerInclusive, String upperInclusive) {
         return fetchRange(TS1User.S1_USER.EMAIL, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>email IN (values)</code>
      */
-    public List<S1UserPojo> fetchByEmail(String... values) {
+    public List<S1User> fetchByEmail(String... values) {
         return fetch(TS1User.S1_USER.EMAIL, values);
     }
 
     /**
      * Fetch records that have <code>address BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<S1UserPojo> fetchRangeOfAddress(String lowerInclusive, String upperInclusive) {
+    public List<S1User> fetchRangeOfAddress(String lowerInclusive, String upperInclusive) {
         return fetchRange(TS1User.S1_USER.ADDRESS, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>address IN (values)</code>
      */
-    public List<S1UserPojo> fetchByAddress(String... values) {
+    public List<S1User> fetchByAddress(String... values) {
         return fetch(TS1User.S1_USER.ADDRESS, values);
     }
 
     /**
      * Fetch records that have <code>create_time BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<S1UserPojo> fetchRangeOfCreateTime(Timestamp lowerInclusive, Timestamp upperInclusive) {
+    public List<S1User> fetchRangeOfCreateTime(Timestamp lowerInclusive, Timestamp upperInclusive) {
         return fetchRange(TS1User.S1_USER.CREATE_TIME, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>create_time IN (values)</code>
      */
-    public List<S1UserPojo> fetchByCreateTime(Timestamp... values) {
+    public List<S1User> fetchByCreateTime(Timestamp... values) {
         return fetch(TS1User.S1_USER.CREATE_TIME, values);
     }
 
     /**
      * Fetch records that have <code>update_time BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<S1UserPojo> fetchRangeOfUpdateTime(Timestamp lowerInclusive, Timestamp upperInclusive) {
+    public List<S1User> fetchRangeOfUpdateTime(Timestamp lowerInclusive, Timestamp upperInclusive) {
         return fetchRange(TS1User.S1_USER.UPDATE_TIME, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>update_time IN (values)</code>
      */
-    public List<S1UserPojo> fetchByUpdateTime(Timestamp... values) {
+    public List<S1User> fetchByUpdateTime(Timestamp... values) {
         return fetch(TS1User.S1_USER.UPDATE_TIME, values);
     }
 }

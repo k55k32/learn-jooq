@@ -43,7 +43,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TS9News extends TableImpl<S9NewsRecord> {
 
-    private static final long serialVersionUID = -1223110997;
+    private static final long serialVersionUID = -1365056935;
 
     /**
      * The reference instance of <code>learn-jooq.s9_news</code>

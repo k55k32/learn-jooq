@@ -42,7 +42,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TS4UnionKey extends TableImpl<S4UnionKeyRecord> {
 
-    private static final long serialVersionUID = -507250407;
+    private static final long serialVersionUID = 557248683;
 
     /**
      * The reference instance of <code>learn-jooq.s4_union_key</code>

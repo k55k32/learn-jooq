@@ -24,7 +24,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class S4NoPrimaryPojo implements IS4NoPrimary {
 
-    private static final long serialVersionUID = 28868768;
+    private static final long serialVersionUID = 449311940;
 
     private String    column1;
     private String    column2;

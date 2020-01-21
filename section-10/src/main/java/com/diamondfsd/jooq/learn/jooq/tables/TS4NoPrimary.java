@@ -36,7 +36,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TS4NoPrimary extends TableImpl<S4NoPrimaryRecord> {
 
-    private static final long serialVersionUID = -2102451864;
+    private static final long serialVersionUID = 1387239266;
 
     /**
      * The reference instance of <code>learn-jooq.s4_no_primary</code>

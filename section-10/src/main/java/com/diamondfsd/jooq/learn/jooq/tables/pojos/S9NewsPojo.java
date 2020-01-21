@@ -24,7 +24,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class S9NewsPojo implements IS9News {
 
-    private static final long serialVersionUID = 2100636643;
+    private static final long serialVersionUID = 1591461383;
 
     private Integer   id;
     private String    title;

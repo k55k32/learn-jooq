@@ -31,7 +31,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class S9NewsRecord extends UpdatableRecordImpl<S9NewsRecord> implements Record5<Integer, String, String, Timestamp, Timestamp>, IS9News {
 
-    private static final long serialVersionUID = -1349433613;
+    private static final long serialVersionUID = 1489908135;
 
     /**
      * Setter for <code>learn-jooq.s9_news.id</code>. ID

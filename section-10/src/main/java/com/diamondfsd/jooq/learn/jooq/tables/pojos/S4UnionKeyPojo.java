@@ -24,7 +24,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class S4UnionKeyPojo implements IS4UnionKey {
 
-    private static final long serialVersionUID = 1507643176;
+    private static final long serialVersionUID = -908528820;
 
     private Integer   uk_1;
     private Integer   uk_2;

@@ -43,7 +43,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TS2UserMessage extends TableImpl<S2UserMessageRecord> {
 
-    private static final long serialVersionUID = 426532198;
+    private static final long serialVersionUID = 723434772;
 
     /**
      * The reference instance of <code>learn-jooq.s2_user_message</code>

@@ -42,7 +42,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TS4ColumenGt22 extends TableImpl<S4ColumenGt22Record> {
 
-    private static final long serialVersionUID = -740510627;
+    private static final long serialVersionUID = 1972212875;
 
     /**
      * The reference instance of <code>learn-jooq.s4_columen_gt22</code>

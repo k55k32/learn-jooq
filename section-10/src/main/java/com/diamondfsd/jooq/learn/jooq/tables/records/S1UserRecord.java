@@ -31,7 +31,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class S1UserRecord extends UpdatableRecordImpl<S1UserRecord> implements Record6<Integer, String, String, String, Timestamp, Timestamp>, IS1User {
 
-    private static final long serialVersionUID = 1622623971;
+    private static final long serialVersionUID = -43023497;
 
     /**
      * Setter for <code>learn-jooq.s1_user.id</code>. ID

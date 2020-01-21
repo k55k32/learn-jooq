@@ -30,7 +30,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class S4NoPrimaryRecord extends TableRecordImpl<S4NoPrimaryRecord> implements Record4<String, String, Timestamp, Timestamp>, IS4NoPrimary {
 
-    private static final long serialVersionUID = 767711465;
+    private static final long serialVersionUID = 1309418831;
 
     /**
      * Setter for <code>learn-jooq.s4_no_primary.column1</code>. 测试列1

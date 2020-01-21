@@ -31,7 +31,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class S2UserMessageRecord extends UpdatableRecordImpl<S2UserMessageRecord> implements Record6<Integer, Integer, String, String, Timestamp, Timestamp>, IS2UserMessage {
 
-    private static final long serialVersionUID = -853969885;
+    private static final long serialVersionUID = -1340655337;
 
     /**
      * Setter for <code>learn-jooq.s2_user_message.id</code>.
