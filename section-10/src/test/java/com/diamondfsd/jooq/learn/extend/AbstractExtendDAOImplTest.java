@@ -1,9 +1,9 @@
 package com.diamondfsd.jooq.learn.extend;
 
-import com.diamondfsd.jooq.learn.codegen.tables.daos.S1UserDao;
-import com.diamondfsd.jooq.learn.codegen.tables.daos.S9NewsDao;
-import com.diamondfsd.jooq.learn.codegen.tables.pojos.S1UserPojo;
-import com.diamondfsd.jooq.learn.codegen.tables.pojos.S9NewsPojo;
+import com.diamondfsd.jooq.learn.jooq.tables.daos.S1UserDao;
+import com.diamondfsd.jooq.learn.jooq.tables.daos.S9NewsDao;
+import com.diamondfsd.jooq.learn.jooq.tables.pojos.S1UserPojo;
+import com.diamondfsd.jooq.learn.jooq.tables.pojos.S9NewsPojo;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Assertions;
@@ -16,8 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-import static com.diamondfsd.jooq.learn.codegen.tables.TS1User.S1_USER;
-import static com.diamondfsd.jooq.learn.codegen.tables.TS9News.S9_NEWS;
+import static com.diamondfsd.jooq.learn.jooq.tables.TS1User.S1_USER;
+import static com.diamondfsd.jooq.learn.jooq.tables.TS9News.S9_NEWS;
 
 @SpringBootTest
 @Transactional

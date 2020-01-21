@@ -1,6 +1,6 @@
 package com.diamondfsd.jooq.learn;
 
-import com.diamondfsd.jooq.learn.codegen.tables.daos.S1UserDao;
+import com.diamondfsd.jooq.learn.jooq.tables.daos.S1UserDao;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;

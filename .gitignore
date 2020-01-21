@@ -14,7 +14,7 @@ hs_err_pid*
 target/
 *.classpath
 .project
-/.idea/
+.idea/
 *.iml
 
 # maven versions:set plugin generate backup file
