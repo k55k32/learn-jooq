@@ -40,6 +40,11 @@ public class CustomJavaGenerator extends JavaGenerator {
                 String newExtends = " extends " + AbstractExtendDAOImpl.class.getSimpleName();
                 fileContent = fileContent.replace("import org.jooq.impl.DAOImpl;\n", "");
                 fileContent = fileContent.replace(oldExtends, newExtends);
+
+                String pojoFullClass = getStrategy().getFullJavaClassName(table, GeneratorStrategy.Mode.POJO);
+                String pojoClassName = getStrategy().getJavaClassName(table, GeneratorStrategy.Mode.POJO);
+                fileContent = fileContent.replace("import " + pojoFullClass + ";\n", "");
+                fileContent = fileContent.replace(pojoClassName, getPojoExtendClassName(table));
                 FileCopyUtils.copy(fileContent.getBytes(), file);
             } catch (IOException e) {
                 log.error("generateDao error: {}", file.getAbsolutePath(), e);
@@ -51,6 +56,7 @@ public class CustomJavaGenerator extends JavaGenerator {
     protected void generateDao(TableDefinition table, JavaWriter out) {
         // 用于生成 import com.diamondfsd.jooq.learn.extend.AbstractDAOExtendImpl 内容
         out.ref(AbstractExtendDAOImpl.class);
+        out.ref(getPojoExtendFullClassName(table));
         super.generateDao(table, out);
     }
 
@@ -117,5 +123,9 @@ public class CustomJavaGenerator extends JavaGenerator {
                         .replace('-', '_')
                         .replace('.', '_')
         );
+    }
+
+    private String getPojoExtendFullClassName(TableDefinition definition) {
+        return getPojoTargetPackage() + "." + getPojoExtendClassName(definition);
     }
 }
