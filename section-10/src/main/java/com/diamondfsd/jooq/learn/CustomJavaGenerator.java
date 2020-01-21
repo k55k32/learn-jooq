@@ -4,12 +4,15 @@ import com.diamondfsd.jooq.learn.extend.AbstractExtendDAOImpl;
 import org.jooq.codegen.GeneratorStrategy;
 import org.jooq.codegen.JavaGenerator;
 import org.jooq.codegen.JavaWriter;
+import org.jooq.impl.DAOImpl;
 import org.jooq.meta.TableDefinition;
 import org.jooq.tools.JooqLogger;
+import org.jooq.tools.StringUtils;
 import org.springframework.util.FileCopyUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 自定义 Java 代码生成器
@@ -33,8 +36,8 @@ public class CustomJavaGenerator extends JavaGenerator {
         if (file.exists()) {
             try {
                 String fileContent = new String(FileCopyUtils.copyToByteArray(file));
-                String oldExtends = " extends DAOImpl";
-                String newExtends = " extends AbstractDAOExtendImpl";
+                String oldExtends = " extends " + DAOImpl.class.getSimpleName();
+                String newExtends = " extends " + AbstractExtendDAOImpl.class.getSimpleName();
                 fileContent = fileContent.replace("import org.jooq.impl.DAOImpl;\n", "");
                 fileContent = fileContent.replace(oldExtends, newExtends);
                 FileCopyUtils.copy(fileContent.getBytes(), file);
@@ -54,5 +57,65 @@ public class CustomJavaGenerator extends JavaGenerator {
     @Override
     protected void generatePojo(TableDefinition table) {
         super.generatePojo(table);
+        /**
+         * 在生成完POJO后，生成POJO的继承类
+         */
+        generatePojoExtend(table);
+    }
+
+    /**
+     * 生成POJO的子类
+     * @param table
+     */
+    private void generatePojoExtend(TableDefinition table) {
+        File file = getPojoExtendFile(table);
+        if (file.exists()) {
+            log.info("Generating POJO Extend exists", file.getName());
+            return;
+        } else {
+            log.info("Generating POJO Extend", file.getName());
+        }
+        JavaWriter out = newJavaWriter(file);
+        generatePojoExtend(table, out);
+        closeJavaWriter(out);
+    }
+
+    private void generatePojoExtend(TableDefinition table, JavaWriter out) {
+
+        String pType = out.ref(getStrategy().getFullJavaClassName(table, GeneratorStrategy.Mode.POJO));
+        String className = getPojoExtendClassName(table);
+        out.println("package %s;", getPojoTargetPackage());
+        out.println();
+        out.printImports();
+        out.println();
+        out.println("public class %s extends %s {", className, pType);
+        out.println();
+        out.print("}");
+    }
+
+    private File getPojoExtendFile(TableDefinition table) {
+        String dir = getTargetDirectory();
+        String pkg = getPojoTargetPackage().replaceAll("\\.", "/");
+        return new File(dir + "/" + pkg, getPojoExtendFileName(table));
+    }
+
+    private String getPojoTargetPackage() {
+        String targetPackage = getTargetPackage();
+        String targetParentPackage = targetPackage.substring(0, targetPackage.lastIndexOf(".")) + ".pojos";
+        return targetParentPackage;
+    }
+
+    private String getPojoExtendFileName(TableDefinition definition) {
+        String javaClassName = getPojoExtendClassName(definition);
+        return javaClassName + ".java";
+    }
+
+    private String getPojoExtendClassName(TableDefinition definition) {
+        return StringUtils.toCamelCase(
+                definition.getOutputName()
+                        .replace(' ', '_')
+                        .replace('-', '_')
+                        .replace('.', '_')
+        );
     }
 }

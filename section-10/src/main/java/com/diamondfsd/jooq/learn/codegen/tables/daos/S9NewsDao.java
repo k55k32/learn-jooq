@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
 
 
 /**
- * 新闻�?
+ * 新闻表
  */
 @Generated(
     value = {
