@@ -12,7 +12,6 @@ import org.springframework.util.FileCopyUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * 自定义 Java 代码生成器
@@ -63,14 +62,15 @@ public class CustomJavaGenerator extends JavaGenerator {
     @Override
     protected void generatePojo(TableDefinition table) {
         super.generatePojo(table);
-        /**
-         * 在生成完POJO后，生成POJO的继承类
-         */
+        // 在生成完POJO后，生成POJO的继承类
         generatePojoExtend(table);
     }
 
     /**
-     * 生成POJO的子类
+     * 生成POJO的子类，生成的子类在jOOQ生成配置目标的父级目录
+     * 所以在每次生成的时候不会被删除，而且在代码内判断了如果文件存在
+     * 则不在创建代码，防止我们手动修改的代码被覆盖
+     *
      * @param table
      */
     private void generatePojoExtend(TableDefinition table) {
@@ -87,7 +87,6 @@ public class CustomJavaGenerator extends JavaGenerator {
     }
 
     private void generatePojoExtend(TableDefinition table, JavaWriter out) {
-
         String pType = out.ref(getStrategy().getFullJavaClassName(table, GeneratorStrategy.Mode.POJO));
         String className = getPojoExtendClassName(table);
         out.println("package %s;", getPojoTargetPackage());
