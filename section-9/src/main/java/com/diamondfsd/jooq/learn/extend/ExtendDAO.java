@@ -13,7 +13,7 @@ import java.util.Optional;
  * @param <T> 主键类型
  * @author Diamond
  */
-public interface ExtendDao<R extends UpdatableRecord<R>, P, T> extends DAO<R, P, T> {
+public interface ExtendDAO<R extends UpdatableRecord<R>, P, T> extends DAO<R, P, T> {
 
     /**
      * 获取 DSLContext
@@ -67,7 +67,7 @@ public interface ExtendDao<R extends UpdatableRecord<R>, P, T> extends DAO<R, P,
     PageResult<P> fetchPage(PageResult<P> pageResult, SelectLimitStep<?> selectLimitStep);
 
     /**
-     * 通用类型读取分页数据
+     * 任意类型读取分页数据
      *
      * @param pageResult      分页参数
      * @param selectLimitStep 查询语句
@@ -79,7 +79,7 @@ public interface ExtendDao<R extends UpdatableRecord<R>, P, T> extends DAO<R, P,
                                 RecordMapper<? super Record, O> mapper);
 
     /**
-     * 通用类型读取分页数据
+     * 任意类型读取分页数据
      *
      * @param pageResult      分页参数
      * @param selectLimitStep 查询语句

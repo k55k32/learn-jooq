@@ -7,7 +7,7 @@ package com.diamondfsd.jooq.learn.codegen.tables.daos;
 import com.diamondfsd.jooq.learn.codegen.tables.TS4UnionKey;
 import com.diamondfsd.jooq.learn.codegen.tables.pojos.S4UnionKeyPojo;
 import com.diamondfsd.jooq.learn.codegen.tables.records.S4UnionKeyRecord;
-import com.diamondfsd.jooq.learn.extend.AbstractDAOExtendImpl;
+import com.diamondfsd.jooq.learn.extend.AbstractExtendDAOImpl;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -32,7 +32,7 @@ import org.springframework.stereotype.Repository;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class S4UnionKeyDao extends AbstractDAOExtendImpl<S4UnionKeyRecord, S4UnionKeyPojo, Record2<Integer, Integer>> {
+public class S4UnionKeyDao extends AbstractExtendDAOImpl<S4UnionKeyRecord, S4UnionKeyPojo, Record2<Integer, Integer>> {
 
     /**
      * Create a new S4UnionKeyDao without any configuration

@@ -12,14 +12,14 @@ import java.util.Optional;
 /**
  * @author Diamond
  */
-public abstract class AbstractDAOExtendImpl<R extends UpdatableRecord<R>, P, T> extends DAOImpl<R, P, T>
-        implements ExtendDao<R, P, T> {
+public abstract class AbstractExtendDAOImpl<R extends UpdatableRecord<R>, P, T> extends DAOImpl<R, P, T>
+        implements ExtendDAO<R, P, T> {
 
-    protected AbstractDAOExtendImpl(Table<R> table, Class<P> type) {
+    protected AbstractExtendDAOImpl(Table<R> table, Class<P> type) {
         super(table, type);
     }
 
-    protected AbstractDAOExtendImpl(Table<R> table, Class<P> type, Configuration configuration) {
+    protected AbstractExtendDAOImpl(Table<R> table, Class<P> type, Configuration configuration) {
         super(table, type, configuration);
     }
 
@@ -66,13 +66,15 @@ public abstract class AbstractDAOExtendImpl<R extends UpdatableRecord<R>, P, T> 
                                        RecordMapper<? super Record, O> mapper) {
         int size = pageResult.getPageSize();
         int start = (pageResult.getCurrentPage() - 1) * size;
+        // 在页数为零的情况下小优化，不查询数据库直接返回数据为空集合的分页包装类
         if (size == 0) {
             return new PageResult<>(Collections.emptyList(), start, 0, 0);
         }
         String pageSql = selectLimitStep.getSQL(ParamType.INLINED);
         String SELECT = "select";
 
-        pageSql = SELECT + " SQL_CALC_FOUND_ROWS " + pageSql.substring(pageSql.indexOf(SELECT) + SELECT.length())
+        pageSql = SELECT + " SQL_CALC_FOUND_ROWS " +
+                pageSql.substring(pageSql.indexOf(SELECT) + SELECT.length())
                 + " limit ?, ? ";
 
         List<O> resultList = create().fetch(pageSql, start, size).map(mapper);

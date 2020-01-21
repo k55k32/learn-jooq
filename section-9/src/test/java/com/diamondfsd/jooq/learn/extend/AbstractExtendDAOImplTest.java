@@ -4,7 +4,6 @@ import com.diamondfsd.jooq.learn.codegen.tables.daos.S1UserDao;
 import com.diamondfsd.jooq.learn.codegen.tables.daos.S9NewsDao;
 import com.diamondfsd.jooq.learn.codegen.tables.pojos.S1UserPojo;
 import com.diamondfsd.jooq.learn.codegen.tables.pojos.S9NewsPojo;
-import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Assertions;
@@ -19,12 +18,11 @@ import java.util.Optional;
 
 import static com.diamondfsd.jooq.learn.codegen.tables.TS1User.S1_USER;
 import static com.diamondfsd.jooq.learn.codegen.tables.TS9News.S9_NEWS;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
 @Rollback
-class AbstractDAOExtendImplTest {
+class AbstractExtendDAOImplTest {
 
     @Autowired
     S1UserDao s1UserDao;
@@ -75,12 +73,13 @@ class AbstractDAOExtendImplTest {
             Assertions.assertTrue(curr.getId() > next.getId());
         }
 
-        PageResult<S9NewsPojo> s9NewsPojoPageResult = newsDao.fetchPage(pageQuery, newsDao.create().select(S9_NEWS.TITLE, S9_NEWS.CONTENT)
-                .from(S9_NEWS)
-                .where(S9_NEWS.ID.le(5))
-                .orderBy(S9_NEWS.ID.desc()), S9NewsPojo.class);
+        PageResult<S9NewsPojo> s9NewsPojoPageResult = newsDao.fetchPage(pageQuery,
+                newsDao.create().select(S9_NEWS.TITLE, S9_NEWS.CONTENT)
+                        .from(S9_NEWS)
+                        .where(S9_NEWS.ID.le(5))
+                        .orderBy(S9_NEWS.ID.desc()), S9NewsPojo.class);
 
-        Assertions.assertEquals(5 , s9NewsPojoPageResult.getTotal());
+        Assertions.assertEquals(5, s9NewsPojoPageResult.getTotal());
         Assertions.assertEquals(5, s9NewsPojoPageResult.getData().size());
         Assertions.assertEquals(10, s9NewsPojoPageResult.getPageSize());
         Assertions.assertEquals(1, s9NewsPojoPageResult.getCurrentPage());

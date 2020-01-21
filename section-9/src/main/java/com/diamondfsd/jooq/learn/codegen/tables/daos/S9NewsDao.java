@@ -7,7 +7,7 @@ package com.diamondfsd.jooq.learn.codegen.tables.daos;
 import com.diamondfsd.jooq.learn.codegen.tables.TS9News;
 import com.diamondfsd.jooq.learn.codegen.tables.pojos.S9NewsPojo;
 import com.diamondfsd.jooq.learn.codegen.tables.records.S9NewsRecord;
-import com.diamondfsd.jooq.learn.extend.AbstractDAOExtendImpl;
+import com.diamondfsd.jooq.learn.extend.AbstractExtendDAOImpl;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
 
 
 /**
- * 新闻�?
+ * 新闻�?
  */
 @Generated(
     value = {
@@ -31,7 +31,7 @@ import org.springframework.stereotype.Repository;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class S9NewsDao extends AbstractDAOExtendImpl<S9NewsRecord, S9NewsPojo, Integer> {
+public class S9NewsDao extends AbstractExtendDAOImpl<S9NewsRecord, S9NewsPojo, Integer> {
 
     /**
      * Create a new S9NewsDao without any configuration
