@@ -75,7 +75,7 @@ public interface ExtendDao<R extends UpdatableRecord<R>, P, T> extends DAO<R, P,
      * @param <O>             返回类型的泛型
      * @return 分页结果集
      */
-    <O> PageResult<O> fetchPage(PageResult<P> pageResult, SelectLimitStep<?> selectLimitStep,
+    <O> PageResult<O> fetchPage(PageResult<O> pageResult, SelectLimitStep<?> selectLimitStep,
                                 RecordMapper<? super Record, O> mapper);
 
     /**
@@ -87,7 +87,7 @@ public interface ExtendDao<R extends UpdatableRecord<R>, P, T> extends DAO<R, P,
      * @param <O>             返回类型的泛型
      * @return 分页结果集
      */
-    <O> PageResult<O> fetchPage(PageResult<P> pageResult, SelectLimitStep<?> selectLimitStep,
+    <O> PageResult<O> fetchPage(PageResult<O> pageResult, SelectLimitStep<?> selectLimitStep,
                                 Class<O> pojoType);
 
 }

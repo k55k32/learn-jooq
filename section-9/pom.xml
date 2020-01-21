@@ -72,7 +72,7 @@
                             <springAnnotations>true</springAnnotations>
                         </generate>
                         <database>
-                            <includes>(s1_.*)|(s2_.*)|(s4_.*)</includes>
+                            <includes>(s1_.*)|(s2_.*)|(s4_.*)|(s9_.*)</includes>
                             <inputSchema>learn-jooq</inputSchema>
                         </database>
                         <target>

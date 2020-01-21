@@ -9,6 +9,7 @@ import com.diamondfsd.jooq.learn.codegen.tables.TS2UserMessage;
 import com.diamondfsd.jooq.learn.codegen.tables.TS4ColumenGt22;
 import com.diamondfsd.jooq.learn.codegen.tables.TS4NoPrimary;
 import com.diamondfsd.jooq.learn.codegen.tables.TS4UnionKey;
+import com.diamondfsd.jooq.learn.codegen.tables.TS9News;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,7 +35,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class LearnJooq extends SchemaImpl {
 
-    private static final long serialVersionUID = 1332911434;
+    private static final long serialVersionUID = -394269006;
 
     /**
      * The reference instance of <code>learn-jooq</code>
@@ -67,6 +68,11 @@ public class LearnJooq extends SchemaImpl {
     public final TS4UnionKey S4_UNION_KEY = com.diamondfsd.jooq.learn.codegen.tables.TS4UnionKey.S4_UNION_KEY;
 
     /**
+     * 新闻表
+     */
+    public final TS9News S9_NEWS = com.diamondfsd.jooq.learn.codegen.tables.TS9News.S9_NEWS;
+
+    /**
      * No further instances allowed
      */
     private LearnJooq() {
@@ -92,6 +98,7 @@ public class LearnJooq extends SchemaImpl {
             TS2UserMessage.S2_USER_MESSAGE,
             TS4ColumenGt22.S4_COLUMEN_GT22,
             TS4NoPrimary.S4_NO_PRIMARY,
-            TS4UnionKey.S4_UNION_KEY);
+            TS4UnionKey.S4_UNION_KEY,
+            TS9News.S9_NEWS);
     }
 }

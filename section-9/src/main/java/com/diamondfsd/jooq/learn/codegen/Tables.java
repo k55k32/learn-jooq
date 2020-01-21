@@ -9,6 +9,7 @@ import com.diamondfsd.jooq.learn.codegen.tables.TS2UserMessage;
 import com.diamondfsd.jooq.learn.codegen.tables.TS4ColumenGt22;
 import com.diamondfsd.jooq.learn.codegen.tables.TS4NoPrimary;
 import com.diamondfsd.jooq.learn.codegen.tables.TS4UnionKey;
+import com.diamondfsd.jooq.learn.codegen.tables.TS9News;
 
 import javax.annotation.Generated;
 
@@ -50,4 +51,9 @@ public class Tables {
      * The table <code>learn-jooq.s4_union_key</code>.
      */
     public static final TS4UnionKey S4_UNION_KEY = TS4UnionKey.S4_UNION_KEY;
+
+    /**
+     * 新闻表
+     */
+    public static final TS9News S9_NEWS = TS9News.S9_NEWS;
 }

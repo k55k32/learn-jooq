@@ -5,6 +5,7 @@ import org.jooq.conf.ParamType;
 import org.jooq.impl.DAOImpl;
 import org.jooq.impl.DSL;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,10 +62,13 @@ public abstract class AbstractDAOExtendImpl<R extends UpdatableRecord<R>, P, T> 
     }
 
     @Override
-    public <O> PageResult<O> fetchPage(PageResult<P> pageResult, SelectLimitStep<?> selectLimitStep,
+    public <O> PageResult<O> fetchPage(PageResult<O> pageResult, SelectLimitStep<?> selectLimitStep,
                                        RecordMapper<? super Record, O> mapper) {
         int size = pageResult.getPageSize();
         int start = (pageResult.getCurrentPage() - 1) * size;
+        if (size == 0) {
+            return new PageResult<>(Collections.emptyList(), start, 0, 0);
+        }
         String pageSql = selectLimitStep.getSQL(ParamType.INLINED);
         String SELECT = "select";
 
@@ -73,16 +77,14 @@ public abstract class AbstractDAOExtendImpl<R extends UpdatableRecord<R>, P, T> 
 
         List<O> resultList = create().fetch(pageSql, start, size).map(mapper);
         Long total = create().fetchOne("SELECT FOUND_ROWS()").into(Long.class);
-        PageResult<O> result = new PageResult<>();
+        PageResult<O> result = pageResult.into(new PageResult<>());
         result.setData(resultList);
-        result.setCurrentPage(pageResult.getCurrentPage());
-        result.setPageSize(size);
         result.setTotal(total);
         return result;
     }
 
     @Override
-    public <O> PageResult<O> fetchPage(PageResult<P> pageResult, SelectLimitStep<?> selectLimitStep, Class<O> pojoType) {
+    public <O> PageResult<O> fetchPage(PageResult<O> pageResult, SelectLimitStep<?> selectLimitStep, Class<O> pojoType) {
         return fetchPage(pageResult, selectLimitStep, r -> r.into(pojoType));
     }
 }

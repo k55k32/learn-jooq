@@ -25,6 +25,20 @@ public class PageResult<T> {
      */
     private Long total;
 
+    public PageResult() {}
+
+    public PageResult(int currentPage, int pageSize) {
+        this.currentPage = currentPage;
+        this.pageSize = pageSize;
+    }
+
+    public PageResult(List<T> data, int currentPage, int pageSize, long total) {
+        this.data = data;
+        this.currentPage = currentPage;
+        this.pageSize = pageSize;
+        this.total = total;
+    }
+
     public List<T> getData() {
         return data;
     }
@@ -55,5 +69,17 @@ public class PageResult<T> {
 
     public void setTotal(Long total) {
         this.total = total;
+    }
+
+    public void from(PageResult<T> pageResult) {
+        setPageSize(pageResult.pageSize);
+        setCurrentPage(pageResult.currentPage);
+        setTotal(pageResult.total);
+        setData(pageResult.data);
+    }
+
+    public PageResult<T> into(PageResult<T> into) {
+        into.from(this);
+        return into;
     }
 }
