@@ -20,4 +20,4 @@ jOOQ的初始化，介绍基本查询操作
 
 - section-9  jOOQ的分页查询封装
 
-- section-  jOOQ的条件构建工具类
+- section-10 关联查询和POJO添加字段
