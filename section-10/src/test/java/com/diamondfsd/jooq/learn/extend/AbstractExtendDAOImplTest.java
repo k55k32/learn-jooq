@@ -1,5 +1,6 @@
 package com.diamondfsd.jooq.learn.extend;
 
+import com.diamondfsd.jooq.learn.jooq.tables.TS1User;
 import com.diamondfsd.jooq.learn.jooq.tables.daos.S1UserDao;
 import com.diamondfsd.jooq.learn.jooq.tables.daos.S9NewsDao;
 import com.diamondfsd.jooq.learn.pojos.S1User;
@@ -14,6 +15,7 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static com.diamondfsd.jooq.learn.jooq.tables.TS1User.S1_USER;
@@ -25,14 +27,14 @@ import static com.diamondfsd.jooq.learn.jooq.tables.TS9News.S9_NEWS;
 class AbstractExtendDAOImplTest {
 
     @Autowired
-    S1UserDao s1UserDao;
+    S1UserDao userDao;
 
     @Autowired
     S9NewsDao newsDao;
 
     @Test
     void create() {
-        DSLContext dslContext = s1UserDao.create();
+        DSLContext dslContext = userDao.create();
         Assertions.assertNotNull(dslContext);
         Integer result = dslContext.selectOne().fetchOneInto(Integer.class);
         Assertions.assertEquals(1, result);
@@ -40,20 +42,20 @@ class AbstractExtendDAOImplTest {
 
     @Test
     void fetchOne() {
-        S1User s1User = s1UserDao.fetchOne(S1_USER.USERNAME.eq("demo1"));
+        S1User s1User = userDao.fetchOne(S1_USER.USERNAME.eq("demo1"));
         Assertions.assertNotNull(s1User);
     }
 
     @Test
     void fetchOneOptional() {
         Optional<S1User> s1User =
-                s1UserDao.fetchOneOptional(S1_USER.ID.eq(0));
+                userDao.fetchOneOptional(S1_USER.ID.eq(0));
         Assertions.assertFalse(s1User.isPresent());
     }
 
     @Test
     void fetch() {
-        List<S1User> fetch = s1UserDao.fetch(DSL.noCondition(), S1_USER.ID.desc());
+        List<S1User> fetch = userDao.fetch(DSL.noCondition(), S1_USER.ID.desc());
         Assertions.assertTrue(fetch.size() >= 2);
         Assertions.assertTrue(fetch.get(0).getId() > fetch.get(1).getId());
     }
@@ -91,5 +93,104 @@ class AbstractExtendDAOImplTest {
         Assertions.assertEquals(0, sizeZeroResult.getPageSize());
         Assertions.assertEquals(0, sizeZeroResult.getCurrentPage());
 
+    }
+
+    @Test
+    void update() {
+        S1User user = userDao.findById(1);
+        Assertions.assertNotNull(user.getEmail());
+        S1User user1 = new S1User();
+        user1.setId(1);
+        user1.setUsername("username-test");
+        userDao.update(user1);
+        S1User afterUpdate = userDao.findById(1);
+        Assertions.assertNull(afterUpdate.getEmail());
+    }
+
+    @Test
+    void updateBatch() {
+        S1User user1 = new S1User();
+        user1.setId(1);
+        user1.setUsername("username-test");
+
+        S1User user2 = new S1User();
+        user2.setId(2);
+        user2.setUsername("hello 2");
+        userDao.update(user1, user2);
+
+        List<S1User> s1Users = userDao.fetchById(1, 2);
+        Assertions.assertNull(s1Users.get(0).getEmail());
+        Assertions.assertNull(s1Users.get(1).getEmail());
+    }
+
+    @Test
+    void updateSelective() {
+        S1User user = userDao.findById(1);
+        Assertions.assertNotNull(user.getEmail());
+        S1User user1 = new S1User();
+        user1.setId(1);
+        user1.setUsername("username-test");
+        userDao.updateSelective(user1);
+        S1User afterUpdate = userDao.findById(1);
+        Assertions.assertNotNull(afterUpdate.getEmail());
+
+        user1.setUsername("user1-test");
+
+        S1User user2 = new S1User();
+        user2.setId(2);
+        user2.setUsername("user2-test");
+        userDao.updateSelective(user1, user2);
+
+        List<S1User> users = userDao.fetchById(1, 2);
+        Assertions.assertEquals(2, users.size());
+        Assertions.assertEquals("user1-test", users.get(0).getUsername());
+        Assertions.assertEquals("user2-test", users.get(1).getUsername());
+        Assertions.assertNotNull(users.get(0).getEmail());
+        Assertions.assertNotNull(users.get(1).getEmail());
+    }
+
+    @Test
+    void insert() {
+        S1User s1User = new S1User();
+        s1User.setUsername("hello");
+        s1User.setAddress("222");
+        userDao.insert(s1User);
+        Assertions.assertNotNull(s1User.getId());
+        S1User storeUser = userDao.findById(s1User.getId());
+        Assertions.assertNull(storeUser.getCreateTime());
+
+        S1User batchUser1 = new S1User();
+        batchUser1.setUsername("batch-user-1");
+        S1User batchUser2 = new S1User();
+        batchUser2.setUsername("batch-user-2");
+        userDao.insert(batchUser1, batchUser2);
+    }
+
+    @Test
+    void insertSelective() {
+        S1User user = new S1User();
+        user.setUsername("username-test");
+        userDao.insertSelective(user);
+        Assertions.assertNotNull(user.getId());
+    }
+
+    @Test
+    void insertSelectiveBatch() {
+        S1User user = new S1User();
+        user.setUsername("username-test");
+        userDao.insertSelective(user);
+        Assertions.assertNotNull(user.getId());
+
+        S1User user1 = new S1User();
+        user1.setUsername("hello user1");
+        S1User user2 = new S1User();
+        user2.setUsername("hello user2");
+        user2.setEmail("email2");
+        userDao.insertSelective(user1, user2);
+        List<S1User> createUser = userDao.fetch(S1_USER.ID.gt(user.getId()));
+        Assertions.assertEquals(2, createUser.size());
+        Assertions.assertEquals("hello user1", createUser.get(0).getUsername());
+        Assertions.assertEquals("hello user2", createUser.get(1).getUsername());
+        Assertions.assertEquals("email2", createUser.get(1).getEmail());
     }
 }

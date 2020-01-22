@@ -2,12 +2,11 @@ package com.diamondfsd.jooq.learn.extend;
 
 import org.jooq.*;
 import org.jooq.conf.ParamType;
+import org.jooq.conf.Settings;
 import org.jooq.impl.DAOImpl;
 import org.jooq.impl.DSL;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * @author Diamond
@@ -88,5 +87,87 @@ public abstract class AbstractExtendDAOImpl<R extends UpdatableRecord<R>, P, T> 
     @Override
     public <O> PageResult<O> fetchPage(PageResult<O> pageResult, SelectLimitStep<?> selectLimitStep, Class<O> pojoType) {
         return fetchPage(pageResult, selectLimitStep, r -> r.into(pojoType));
+    }
+
+    @Override
+    public void updateSelective(P object) {
+        this.updateSelective(Collections.singletonList(object));
+    }
+
+    @Override
+    public void updateSelective(P... objects) {
+        this.updateSelective(Arrays.asList(objects));
+    }
+
+    @Override
+    public void updateSelective(Collection<P> objects) {
+        if (objects.size() > 1) {
+            create().batchUpdate(recordsSelective(objects, true)).execute();
+        } else if (objects.size() == 1) {
+            recordsSelective(objects, true).get(0).update();
+        }
+    }
+
+    @Override
+    public void insertSelective(P object) {
+        R record = recordsSelective(Collections.singletonList(object), false).get(0);
+        record.insert();
+        record.into(object);
+    }
+
+    /**
+     * 重写 DAOImpl.insert 方法的原因是因为
+     * 在默认配置下父级的方法不会进行批量插入操作，而是便利每个对象
+     * 进行Insert操作，会产生N条SQL语句，影响性能
+     * @param objects
+     */
+    @Override
+    public void insert(Collection<P> objects) {
+        Settings settings = configuration().settings();
+        Boolean oldConfigIsReturnRecord = settings.isReturnRecordToPojo();
+        if (objects.size() > 1 && !settings.isReturnAllOnUpdatableRecord()) {
+            settings.setReturnRecordToPojo(false);
+        }
+        try {
+            super.insert(objects);
+        } finally {
+            settings.setReturnRecordToPojo(oldConfigIsReturnRecord);
+        }
+    }
+
+    @Override
+    public void insertSelective(P... objects) {
+        insertSelective(Arrays.asList(objects));
+    }
+
+    @Override
+    public void insertSelective(Collection<P> objects) {
+        if (objects.size() > 0) {
+            create().batchInsert(recordsSelective(objects, false)).execute();
+        }
+    }
+
+    private List<R> recordsSelective(Collection<P> objects, boolean forUpdate) {
+        List<R> result = new ArrayList<>(objects.size());
+        Field<?>[] pk = getTable().getPrimaryKey().getFieldsArray();
+        DSLContext ctx = create();
+
+        for (P object : objects) {
+            R record = ctx.newRecord(getTable(), object);
+
+            if (forUpdate && pk != null) {
+                for (Field<?> field : pk) {
+                    record.changed(field, false);
+                }
+            }
+
+            for (int i = 0; i < record.size(); i++) {
+                Object data = record.get(i);
+                record.changed(i, data != null);
+            }
+            result.add(record);
+        }
+
+        return result;
     }
 }

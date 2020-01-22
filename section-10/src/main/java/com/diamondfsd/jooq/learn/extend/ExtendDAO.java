@@ -2,6 +2,7 @@ package com.diamondfsd.jooq.learn.extend;
 
 import org.jooq.*;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -89,5 +90,51 @@ public interface ExtendDAO<R extends UpdatableRecord<R>, P, T> extends DAO<R, P,
      */
     <O> PageResult<O> fetchPage(PageResult<O> pageResult, SelectLimitStep<?> selectLimitStep,
                                 Class<O> pojoType);
+
+
+    /**
+     * 对指定的 POJO 执行 UPDATE 操作， 只更新非空的部分
+     *
+     * @param object 需要更新的 POJO
+     */
+    void updateSelective(P object);
+
+    /**
+     * 对指定的 POJOs 执行 UPDATE 操作， 只更新非空的部分
+     *
+     * @param objects 需要更新的 POJOs
+     */
+    void updateSelective(P... objects);
+
+    /**
+     * 对指定的 POJOs 执行 UPDATE 操作， 只更新非空的部分
+     *
+     * @param objects 需要更新的 POJOs
+     */
+    void updateSelective(Collection<P> objects);
+
+    /**
+     * 对传入的 POJO 执行 INSERT 操作，只会插入非空的值
+     * 如果有自增ID会返回自增ID
+     *
+     * @param object
+     * @return
+     */
+    void insertSelective(P object);
+
+    /**
+     * 对传入的 POJO 执行 INSERT 操作， 只会插入非空的值
+     *
+     * @param objects
+     */
+    void insertSelective(P... objects);
+
+    /**
+     * 对传入的 POJO 执行 INSERT 操作， 只会插入非空的值
+     *
+     * @param objects
+     */
+    void insertSelective(Collection<P> objects);
+
 
 }
