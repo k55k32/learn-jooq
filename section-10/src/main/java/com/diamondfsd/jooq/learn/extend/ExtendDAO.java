@@ -115,7 +115,7 @@ public interface ExtendDAO<R extends UpdatableRecord<R>, P, T> extends DAO<R, P,
 
     /**
      * 对传入的 POJO 执行 INSERT 操作，只会插入非空的值
-     * 如果有自增ID会返回自增ID
+     * 如果有自增主键,传入的 POJO 主键会被赋值
      *
      * @param object
      * @return
