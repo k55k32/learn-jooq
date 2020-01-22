@@ -1,14 +1,14 @@
 ## jOOQ 系列教程源码
 
-- section-1 如何开始jOOQ
+- section-1  如何开始jOOQ
 
-- section-2 基础CURD
+- section-2  基础CURD
 
-- section-3 查询的结果集处理
+- section-3  查询的结果集处理
 
-- section-4 Record接口详解
+- section-4  Record接口详解
 
-- section-5 interface 和 DAO
+- section-5  interface 和 DAO
 
 - section-6  Spring和jOOQ的整合
 
