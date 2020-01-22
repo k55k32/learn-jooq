@@ -6,6 +6,7 @@ import org.jooq.meta.TableDefinition;
 
 /**
  * 自定义生成策略
+ *
  * @author Diamond
  */
 public class CustomGeneratorStrategy extends DefaultGeneratorStrategy {
@@ -14,7 +15,7 @@ public class CustomGeneratorStrategy extends DefaultGeneratorStrategy {
         String result = super.getJavaClassName(definition, mode);
         switch (mode) {
             case POJO:
-                result +="Pojo";
+                result += "Pojo";
                 break;
             case DEFAULT:
                 if (definition instanceof TableDefinition) {
