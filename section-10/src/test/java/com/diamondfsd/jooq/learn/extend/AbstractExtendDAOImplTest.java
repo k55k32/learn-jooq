@@ -2,11 +2,15 @@ package com.diamondfsd.jooq.learn.extend;
 
 import com.diamondfsd.jooq.learn.jooq.tables.TS1User;
 import com.diamondfsd.jooq.learn.jooq.tables.daos.S1UserDao;
+import com.diamondfsd.jooq.learn.jooq.tables.daos.S4UnionKeyDao;
 import com.diamondfsd.jooq.learn.jooq.tables.daos.S9NewsDao;
 import com.diamondfsd.jooq.learn.pojos.S1User;
+import com.diamondfsd.jooq.learn.pojos.S4UnionKey;
 import com.diamondfsd.jooq.learn.pojos.S9News;
 import org.jooq.DSLContext;
+import org.jooq.Record2;
 import org.jooq.impl.DSL;
+import org.jooq.impl.TableRecordImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 
 import static com.diamondfsd.jooq.learn.jooq.tables.TS1User.S1_USER;
 import static com.diamondfsd.jooq.learn.jooq.tables.TS9News.S9_NEWS;
@@ -31,6 +33,9 @@ class AbstractExtendDAOImplTest {
 
     @Autowired
     S9NewsDao newsDao;
+
+    @Autowired
+    S4UnionKeyDao unionKeyDao;
 
     @Test
     void create() {
@@ -192,5 +197,25 @@ class AbstractExtendDAOImplTest {
         Assertions.assertEquals("hello user1", createUser.get(0).getUsername());
         Assertions.assertEquals("hello user2", createUser.get(1).getUsername());
         Assertions.assertEquals("email2", createUser.get(1).getEmail());
+    }
+
+    @Test
+    void fetchById() {
+        List<S1User> s1Users = userDao.fetchById(Arrays.asList(1, 2));
+        Assertions.assertEquals(2, s1Users.size());
+        S4UnionKey uk1 = new S4UnionKey();
+        uk1.setUk_1(1);
+        uk1.setUk_2(1);
+        S4UnionKey uk2 = new S4UnionKey();
+        uk2.setUk_1(1);
+        uk2.setUk_2(2);
+        /**
+         * 联合主键查询
+         */
+        List<S4UnionKey> s4UnionKeys = unionKeyDao.fetchById(Arrays.asList(unionKeyDao.getId(uk1), unionKeyDao.getId(uk2)));
+        Assertions.assertEquals(2, s4UnionKeys.size());
+
+        s4UnionKeys = unionKeyDao.fetchById(Collections.singletonList(unionKeyDao.getId(uk1)));
+        Assertions.assertEquals(1, s4UnionKeys.size());
     }
 }

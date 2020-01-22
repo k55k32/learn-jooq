@@ -1,17 +1,24 @@
 package com.diamondfsd.jooq.learn;
 
 import com.diamondfsd.jooq.learn.extend.AbstractExtendDAOImpl;
+import com.diamondfsd.jooq.learn.extend.AbstractGenericService;
+import org.jooq.Constants;
+import org.jooq.Record;
 import org.jooq.codegen.GeneratorStrategy;
 import org.jooq.codegen.JavaGenerator;
 import org.jooq.codegen.JavaWriter;
 import org.jooq.impl.DAOImpl;
+import org.jooq.meta.ColumnDefinition;
 import org.jooq.meta.TableDefinition;
+import org.jooq.meta.UniqueKeyDefinition;
 import org.jooq.tools.JooqLogger;
 import org.jooq.tools.StringUtils;
+import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 自定义 Java 代码生成器
@@ -20,7 +27,6 @@ import java.io.IOException;
  */
 public class CustomJavaGenerator extends JavaGenerator {
     private static final JooqLogger log = JooqLogger.getLogger(CustomJavaGenerator.class);
-
 
     /**
      * 重写了 generateDao， 具体的生成逻辑还是调用父级的方法，只是在生成完成后，获取文件内容，
@@ -43,7 +49,7 @@ public class CustomJavaGenerator extends JavaGenerator {
                 String pojoFullClass = getStrategy().getFullJavaClassName(table, GeneratorStrategy.Mode.POJO);
                 String pojoClassName = getStrategy().getJavaClassName(table, GeneratorStrategy.Mode.POJO);
                 fileContent = fileContent.replace("import " + pojoFullClass + ";\n", "");
-                fileContent = fileContent.replace(pojoClassName, getPojoExtendClassName(table));
+                fileContent = fileContent.replace(pojoClassName, getTableSimpleName(table));
                 FileCopyUtils.copy(fileContent.getBytes(), file);
             } catch (IOException e) {
                 log.error("generateDao error: {}", file.getAbsolutePath(), e);
@@ -62,8 +68,73 @@ public class CustomJavaGenerator extends JavaGenerator {
     @Override
     protected void generatePojo(TableDefinition table) {
         super.generatePojo(table);
+        table.getPrimaryKey();
         // 在生成完POJO后，生成POJO的继承类
         generatePojoExtend(table);
+
+        // 生成Service
+        generateService(table);
+    }
+
+    private void generateService(TableDefinition table) {
+        File file = getServiceFile(table);
+        if (file.exists()) {
+            log.info("Generating Service exists", file.getName());
+            return;
+        } else {
+            log.info("Generating Service", file.getName());
+        }
+        JavaWriter out = newJavaWriter(file);
+        generateService(table, out);
+        closeJavaWriter(out);
+    }
+
+    private void generateService(TableDefinition table, JavaWriter out) {
+        UniqueKeyDefinition key = table.getPrimaryKey();
+        if (key == null) {
+            log.info("Skipping Service generation", out.file().getName());
+            return;
+        }
+
+        String daoFullClassName = getStrategy().getFullJavaClassName(table, GeneratorStrategy.Mode.DAO);
+        String daoType = out.ref(daoFullClassName);
+        String abstractGenericService = out.ref(AbstractGenericService.class);
+        out.ref(Service.class);
+        List<ColumnDefinition> keys = key.getKeyColumns();
+        String primaryKeyType = getPrimaryKeyType(keys, out);
+        String serviceClassName = getServiceClassName(table);
+        String pojoType = out.ref(getPojoExtendFullClassName(table));
+
+        out.println("package %s;", getServiceTargetPackage());
+        out.println();
+        out.printImports();
+        out.println();
+        out.println("@Service");
+        out.println("public class %s extends %s<%s, %s> {", serviceClassName, abstractGenericService, pojoType, primaryKeyType);
+        out.println();
+        out.tab(1).println("public %s(%s dao) {", serviceClassName, daoType);
+        out.tab(2).println("super(dao);");
+        out.tab(1).println("}");
+
+        out.print("}");
+    }
+
+    private String getPrimaryKeyType(List<ColumnDefinition> keyColumns, JavaWriter out) {
+        if (keyColumns.size() == 1) {
+            return getJavaType(keyColumns.get(0).getType(resolver()), GeneratorStrategy.Mode.POJO);
+        } else if (keyColumns.size() <= Constants.MAX_ROW_DEGREE) {
+            String generics = "";
+            String separator = "";
+
+            for (ColumnDefinition column : keyColumns) {
+                generics += separator + out.ref(getJavaType(column.getType(resolver())));
+                separator = ", ";
+            }
+
+            return Record.class.getName() + keyColumns.size() + "<" + generics + ">";
+        } else {
+            return Record.class.getName();
+        }
     }
 
     /**
@@ -88,7 +159,7 @@ public class CustomJavaGenerator extends JavaGenerator {
 
     private void generatePojoExtend(TableDefinition table, JavaWriter out) {
         String pType = out.ref(getStrategy().getFullJavaClassName(table, GeneratorStrategy.Mode.POJO));
-        String className = getPojoExtendClassName(table);
+        String className = getTableSimpleName(table);
         out.println("package %s;", getPojoTargetPackage());
         out.println();
         out.printImports();
@@ -111,11 +182,17 @@ public class CustomJavaGenerator extends JavaGenerator {
     }
 
     private String getPojoExtendFileName(TableDefinition definition) {
-        String javaClassName = getPojoExtendClassName(definition);
+        String javaClassName = getTableSimpleName(definition);
         return javaClassName + ".java";
     }
 
-    private String getPojoExtendClassName(TableDefinition definition) {
+    /**
+     * 将表名转换为驼峰式命名首字母也大写
+     *
+     * @param definition
+     * @return
+     */
+    private String getTableSimpleName(TableDefinition definition) {
         return StringUtils.toCamelCase(
                 definition.getOutputName()
                         .replace(' ', '_')
@@ -125,6 +202,26 @@ public class CustomJavaGenerator extends JavaGenerator {
     }
 
     private String getPojoExtendFullClassName(TableDefinition definition) {
-        return getPojoTargetPackage() + "." + getPojoExtendClassName(definition);
+        return getPojoTargetPackage() + "." + getTableSimpleName(definition);
     }
+
+    private File getServiceFile(TableDefinition table) {
+        String dir = getTargetDirectory();
+        String pkg = getServiceTargetPackage().replaceAll("\\.", "/");
+        return new File(dir + "/" + pkg, getServiceFileName(table));
+    }
+
+    String getServiceClassName(TableDefinition definition) {
+        return getTableSimpleName(definition) + "Service";
+    }
+
+    String getServiceTargetPackage() {
+        return getTargetPackage().substring(0, getTargetPackage().lastIndexOf(".")) + ".service";
+    }
+
+    String getServiceFileName(TableDefinition definition) {
+        return getServiceClassName(definition) + ".java";
+    }
+
+
 }

@@ -49,46 +49,62 @@ public interface ExtendDAO<R extends UpdatableRecord<R>, P, T> extends DAO<R, P,
     List<P> fetch(Condition condition, SortField<?>... sortFields);
 
     /**
+     * 通过指定的 主键集合 查找数据
+     *
+     * @param ids
+     * @return POJO 集合
+     */
+    List<P> fetchById(Collection<T> ids);
+
+    /**
      * 读取分页数据
      *
-     * @param pageResult 分页参数
+     * @param page 分页参数
+     * @return 分页结果集
+     */
+    PageResult<P> fetchPage(PageResult<P> page);
+
+    /**
+     * 读取分页数据
+     *
+     * @param page       分页参数
      * @param condition  约束条件
      * @param sortFields 排序字段
      * @return 分页结果集
      */
-    PageResult<P> fetchPage(PageResult<P> pageResult, Condition condition, SortField<?>... sortFields);
+    PageResult<P> fetchPage(PageResult<P> page, Condition condition, SortField<?>... sortFields);
 
     /**
      * 读取分页数据
      *
-     * @param pageResult      分页参数
+     * @param page            分页参数
      * @param selectLimitStep 查询语句
      * @return 分页结果集
      */
-    PageResult<P> fetchPage(PageResult<P> pageResult, SelectLimitStep<?> selectLimitStep);
+    PageResult<P> fetchPage(PageResult<P> page, SelectLimitStep<?> selectLimitStep);
 
     /**
      * 任意类型读取分页数据
      *
-     * @param pageResult      分页参数
+     * @param page            分页参数
      * @param selectLimitStep 查询语句
      * @param mapper          结果映射方式
      * @param <O>             返回类型的泛型
      * @return 分页结果集
      */
-    <O> PageResult<O> fetchPage(PageResult<O> pageResult, SelectLimitStep<?> selectLimitStep,
+    <O> PageResult<O> fetchPage(PageResult<O> page, SelectLimitStep<?> selectLimitStep,
                                 RecordMapper<? super Record, O> mapper);
 
     /**
      * 任意类型读取分页数据
      *
-     * @param pageResult      分页参数
+     * @param page            分页参数
      * @param selectLimitStep 查询语句
      * @param pojoType        POJO类型
      * @param <O>             返回类型的泛型
      * @return 分页结果集
      */
-    <O> PageResult<O> fetchPage(PageResult<O> pageResult, SelectLimitStep<?> selectLimitStep,
+    <O> PageResult<O> fetchPage(PageResult<O> page, SelectLimitStep<?> selectLimitStep,
                                 Class<O> pojoType);
 
 
@@ -135,6 +151,4 @@ public interface ExtendDAO<R extends UpdatableRecord<R>, P, T> extends DAO<R, P,
      * @param objects
      */
     void insertSelective(Collection<P> objects);
-
-
 }

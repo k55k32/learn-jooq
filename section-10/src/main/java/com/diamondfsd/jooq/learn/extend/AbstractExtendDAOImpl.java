@@ -8,6 +8,8 @@ import org.jooq.impl.DSL;
 
 import java.util.*;
 
+import static org.jooq.impl.DSL.row;
+
 /**
  * @author Diamond
  */
@@ -49,22 +51,47 @@ public abstract class AbstractExtendDAOImpl<R extends UpdatableRecord<R>, P, T> 
     }
 
     @Override
-    public PageResult<P> fetchPage(PageResult<P> pageResult, Condition condition, SortField<?>... sortFields) {
-        return fetchPage(pageResult, create().selectFrom(getTable())
+    public List<P> fetchById(Collection<T> ids) {
+        return fetch(equalPrimary(ids));
+    }
+
+    private Condition equalPrimary(Collection<T> ids) {
+        Condition condition;
+        TableField<R, ?>[] pk = getTable().getPrimaryKey().getFieldsArray();
+        if (pk.length == 1) {
+            if (ids.size() == 1) {
+                condition = ((Field<Object>) pk[0]).equal(ids.iterator().next());
+            } else {
+                condition = pk[0].in(ids);
+            }
+        } else {
+            condition = row(pk).in(ids.toArray(new Record[0]));
+        }
+        return condition;
+    }
+
+    @Override
+    public PageResult<P> fetchPage(PageResult<P> page) {
+        return fetchPage(page, DSL.noCondition());
+    }
+
+    @Override
+    public PageResult<P> fetchPage(PageResult<P> page, Condition condition, SortField<?>... sortFields) {
+        return fetchPage(page, create().selectFrom(getTable())
                 .where(condition)
                 .orderBy(sortFields));
     }
 
     @Override
-    public PageResult<P> fetchPage(PageResult<P> pageResult, SelectLimitStep<?> selectLimitStep) {
-        return fetchPage(pageResult, selectLimitStep, r -> r.into(getType()));
+    public PageResult<P> fetchPage(PageResult<P> page, SelectLimitStep<?> selectLimitStep) {
+        return fetchPage(page, selectLimitStep, r -> r.into(getType()));
     }
 
     @Override
-    public <O> PageResult<O> fetchPage(PageResult<O> pageResult, SelectLimitStep<?> selectLimitStep,
+    public <O> PageResult<O> fetchPage(PageResult<O> page, SelectLimitStep<?> selectLimitStep,
                                        RecordMapper<? super Record, O> mapper) {
-        int size = pageResult.getPageSize();
-        int start = (pageResult.getCurrentPage() - 1) * size;
+        int size = page.getPageSize();
+        int start = (page.getCurrentPage() - 1) * size;
         // 在页数为零的情况下小优化，不查询数据库直接返回数据为空集合的分页包装类
         if (size == 0) {
             return new PageResult<>(Collections.emptyList(), start, 0, 0);
@@ -78,15 +105,15 @@ public abstract class AbstractExtendDAOImpl<R extends UpdatableRecord<R>, P, T> 
 
         List<O> resultList = create().fetch(pageSql, start, size).map(mapper);
         Long total = create().fetchOne("SELECT FOUND_ROWS()").into(Long.class);
-        PageResult<O> result = pageResult.into(new PageResult<>());
+        PageResult<O> result = page.into(new PageResult<>());
         result.setData(resultList);
         result.setTotal(total);
         return result;
     }
 
     @Override
-    public <O> PageResult<O> fetchPage(PageResult<O> pageResult, SelectLimitStep<?> selectLimitStep, Class<O> pojoType) {
-        return fetchPage(pageResult, selectLimitStep, r -> r.into(pojoType));
+    public <O> PageResult<O> fetchPage(PageResult<O> page, SelectLimitStep<?> selectLimitStep, Class<O> pojoType) {
+        return fetchPage(page, selectLimitStep, r -> r.into(pojoType));
     }
 
     @Override
@@ -119,6 +146,7 @@ public abstract class AbstractExtendDAOImpl<R extends UpdatableRecord<R>, P, T> 
      * 重写 DAOImpl.insert 方法的原因是因为
      * 在默认配置下父级的方法不会进行批量插入操作，而是便利每个对象
      * 进行Insert操作，会产生N条SQL语句，影响性能
+     *
      * @param objects
      */
     @Override
