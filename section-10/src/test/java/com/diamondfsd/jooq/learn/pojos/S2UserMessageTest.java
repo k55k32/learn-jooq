@@ -1,7 +1,6 @@
 package com.diamondfsd.jooq.learn.pojos;
 
 import com.diamondfsd.jooq.learn.jooq.tables.daos.S2UserMessageDao;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -32,11 +31,11 @@ class S2UserMessageTest {
                 .leftJoin(S1_USER).on(S1_USER.ID.eq(S2_USER_MESSAGE.USER_ID))
                 .fetchInto(S2UserMessage.class);
 
-        Assertions.assertTrue(userMessageList.size() > 0);
+        assertTrue(userMessageList.size() > 0);
         List<String> userNames = userMessageList.stream().map(S2UserMessage::getUsername)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
-        Assertions.assertEquals(userMessageList.size(), userNames.size());
+        assertEquals(userMessageList.size(), userNames.size());
     }
 
 }
