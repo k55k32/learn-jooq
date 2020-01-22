@@ -1,10 +1,8 @@
 ## jOOQ 系列教程源码
 
 - section-1 如何开始jOOQ
-jOOQ的初始化，介绍基本查询操作
 
-- section-2 基础CURD    
-介绍常用的CURD操作，使用jOOQ来帮我们生成POJO，
+- section-2 基础CURD
 
 - section-3 查询的结果集处理
 
