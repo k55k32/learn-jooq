@@ -4,10 +4,10 @@
 package com.diamondfsd.jooq.learn.jooq.tables.daos;
 
 
-import com.diamondfsd.jooq.learn.extend.AbstractExtendDAOImpl;
+import com.diamondfsd.jooq.learn.extend.ExtendDAOImpl;
 import com.diamondfsd.jooq.learn.jooq.tables.TS4ColumenGt22;
 import com.diamondfsd.jooq.learn.jooq.tables.records.S4ColumenGt22Record;
-import com.diamondfsd.jooq.learn.pojos.S4ColumenGt22;
+import com.diamondfsd.jooq.learn.entity.S4ColumenGt22;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -31,7 +31,7 @@ import org.springframework.stereotype.Repository;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class S4ColumenGt22Dao extends AbstractExtendDAOImpl<S4ColumenGt22Record, S4ColumenGt22, Integer> {
+public class S4ColumenGt22Dao extends ExtendDAOImpl<S4ColumenGt22Record, S4ColumenGt22, Integer> {
 
     /**
      * Create a new S4ColumenGt22Dao without any configuration

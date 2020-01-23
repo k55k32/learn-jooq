@@ -4,10 +4,10 @@
 package com.diamondfsd.jooq.learn.jooq.tables.daos;
 
 
-import com.diamondfsd.jooq.learn.extend.AbstractExtendDAOImpl;
+import com.diamondfsd.jooq.learn.extend.ExtendDAOImpl;
 import com.diamondfsd.jooq.learn.jooq.tables.TS4UnionKey;
 import com.diamondfsd.jooq.learn.jooq.tables.records.S4UnionKeyRecord;
-import com.diamondfsd.jooq.learn.pojos.S4UnionKey;
+import com.diamondfsd.jooq.learn.entity.S4UnionKey;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -32,7 +32,7 @@ import org.springframework.stereotype.Repository;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class S4UnionKeyDao extends AbstractExtendDAOImpl<S4UnionKeyRecord, S4UnionKey, Record2<Integer, Integer>> {
+public class S4UnionKeyDao extends ExtendDAOImpl<S4UnionKeyRecord, S4UnionKey, Record2<Integer, Integer>> {
 
     /**
      * Create a new S4UnionKeyDao without any configuration

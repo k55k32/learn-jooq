@@ -1,4 +1,4 @@
-package com.diamondfsd.jooq.learn.pojos;
+package com.diamondfsd.jooq.learn.entity;
 
 
 import com.diamondfsd.jooq.learn.jooq.tables.pojos.S2UserMessagePojo;

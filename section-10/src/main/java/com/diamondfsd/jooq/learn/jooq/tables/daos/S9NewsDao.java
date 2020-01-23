@@ -4,10 +4,10 @@
 package com.diamondfsd.jooq.learn.jooq.tables.daos;
 
 
-import com.diamondfsd.jooq.learn.extend.AbstractExtendDAOImpl;
+import com.diamondfsd.jooq.learn.extend.ExtendDAOImpl;
 import com.diamondfsd.jooq.learn.jooq.tables.TS9News;
 import com.diamondfsd.jooq.learn.jooq.tables.records.S9NewsRecord;
-import com.diamondfsd.jooq.learn.pojos.S9News;
+import com.diamondfsd.jooq.learn.entity.S9News;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -31,7 +31,7 @@ import org.springframework.stereotype.Repository;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class S9NewsDao extends AbstractExtendDAOImpl<S9NewsRecord, S9News, Integer> {
+public class S9NewsDao extends ExtendDAOImpl<S9NewsRecord, S9News, Integer> {
 
     /**
      * Create a new S9NewsDao without any configuration

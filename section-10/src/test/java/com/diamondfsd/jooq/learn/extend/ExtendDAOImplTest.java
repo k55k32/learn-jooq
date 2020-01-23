@@ -1,16 +1,13 @@
 package com.diamondfsd.jooq.learn.extend;
 
-import com.diamondfsd.jooq.learn.jooq.tables.TS1User;
 import com.diamondfsd.jooq.learn.jooq.tables.daos.S1UserDao;
 import com.diamondfsd.jooq.learn.jooq.tables.daos.S4UnionKeyDao;
 import com.diamondfsd.jooq.learn.jooq.tables.daos.S9NewsDao;
-import com.diamondfsd.jooq.learn.pojos.S1User;
-import com.diamondfsd.jooq.learn.pojos.S4UnionKey;
-import com.diamondfsd.jooq.learn.pojos.S9News;
+import com.diamondfsd.jooq.learn.entity.S1User;
+import com.diamondfsd.jooq.learn.entity.S4UnionKey;
+import com.diamondfsd.jooq.learn.entity.S9News;
 import org.jooq.DSLContext;
-import org.jooq.Record2;
 import org.jooq.impl.DSL;
-import org.jooq.impl.TableRecordImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +23,7 @@ import static com.diamondfsd.jooq.learn.jooq.tables.TS9News.S9_NEWS;
 @SpringBootTest
 @Transactional
 @Rollback
-class AbstractExtendDAOImplTest {
+class ExtendDAOImplTest {
 
     @Autowired
     S1UserDao userDao;

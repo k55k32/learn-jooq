@@ -1,6 +1,6 @@
 package com.diamondfsd.jooq.learn;
 
-import com.diamondfsd.jooq.learn.pojos.S1User;
+import com.diamondfsd.jooq.learn.entity.S1User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

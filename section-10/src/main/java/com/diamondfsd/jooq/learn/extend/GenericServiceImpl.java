@@ -11,10 +11,10 @@ import java.util.Optional;
  * @param <P>
  * @param <T>
  */
-public abstract class AbstractGenericService<P, T> implements GenericService<P, T> {
+public abstract class GenericServiceImpl<P, T> implements GenericService<P, T> {
     private ExtendDAO<?, P, T> dao;
 
-    public AbstractGenericService(ExtendDAO<?, P, T> dao) {
+    public GenericServiceImpl(ExtendDAO<?, P, T> dao) {
         this.dao = dao;
     }
 
@@ -60,7 +60,7 @@ public abstract class AbstractGenericService<P, T> implements GenericService<P, 
     }
 
     @Override
-    public void deleteByIds(Collection<T> ids) {
+    public void delete(Collection<T> ids) {
         dao.deleteById(ids);
     }
 

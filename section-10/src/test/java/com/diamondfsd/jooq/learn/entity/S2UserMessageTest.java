@@ -1,4 +1,4 @@
-package com.diamondfsd.jooq.learn.pojos;
+package com.diamondfsd.jooq.learn.entity;
 
 import com.diamondfsd.jooq.learn.jooq.tables.daos.S2UserMessageDao;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,8 @@ import java.util.stream.Collectors;
 
 import static com.diamondfsd.jooq.learn.jooq.Tables.S1_USER;
 import static com.diamondfsd.jooq.learn.jooq.Tables.S2_USER_MESSAGE;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 @Transactional
@@ -24,7 +25,7 @@ class S2UserMessageTest {
     S2UserMessageDao userMessageDao;
 
     @Test
-    void getUsername() {
+    void leftJoinUsernameTest() {
         List<S2UserMessage> userMessageList = userMessageDao.create()
                 .select(S2_USER_MESSAGE.ID, S2_USER_MESSAGE.MESSAGE_TITLE, S1_USER.USERNAME)
                 .from(S2_USER_MESSAGE)
@@ -32,10 +33,11 @@ class S2UserMessageTest {
                 .fetchInto(S2UserMessage.class);
 
         assertTrue(userMessageList.size() > 0);
-        List<String> userNames = userMessageList.stream().map(S2UserMessage::getUsername)
+        List<String> usernameList = userMessageList.stream()
+                .map(S2UserMessage::getUsername)
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
-        assertEquals(userMessageList.size(), userNames.size());
+        assertEquals(userMessageList.size(), usernameList.size());
     }
 
 }

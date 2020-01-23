@@ -1,5 +1,6 @@
 package com.diamondfsd.jooq.learn.extend;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -81,7 +82,7 @@ public interface GenericService<P, T> {
      * @param ids 主键集合
      * @return 影响行数
      */
-    void deleteByIds(Collection<T> ids);
+    void delete(Collection<T> ids);
 
     /**
      * 获取全部数据

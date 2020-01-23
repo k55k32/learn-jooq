@@ -13,14 +13,14 @@ import static org.jooq.impl.DSL.row;
 /**
  * @author Diamond
  */
-public abstract class AbstractExtendDAOImpl<R extends UpdatableRecord<R>, P, T> extends DAOImpl<R, P, T>
+public abstract class ExtendDAOImpl<R extends UpdatableRecord<R>, P, T> extends DAOImpl<R, P, T>
         implements ExtendDAO<R, P, T> {
 
-    protected AbstractExtendDAOImpl(Table<R> table, Class<P> type) {
+    protected ExtendDAOImpl(Table<R> table, Class<P> type) {
         super(table, type);
     }
 
-    protected AbstractExtendDAOImpl(Table<R> table, Class<P> type, Configuration configuration) {
+    protected ExtendDAOImpl(Table<R> table, Class<P> type, Configuration configuration) {
         super(table, type, configuration);
     }
 

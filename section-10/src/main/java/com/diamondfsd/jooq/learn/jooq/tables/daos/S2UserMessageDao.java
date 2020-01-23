@@ -4,10 +4,10 @@
 package com.diamondfsd.jooq.learn.jooq.tables.daos;
 
 
-import com.diamondfsd.jooq.learn.extend.AbstractExtendDAOImpl;
+import com.diamondfsd.jooq.learn.extend.ExtendDAOImpl;
 import com.diamondfsd.jooq.learn.jooq.tables.TS2UserMessage;
 import com.diamondfsd.jooq.learn.jooq.tables.records.S2UserMessageRecord;
-import com.diamondfsd.jooq.learn.pojos.S2UserMessage;
+import com.diamondfsd.jooq.learn.entity.S2UserMessage;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -31,7 +31,7 @@ import org.springframework.stereotype.Repository;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 @Repository
-public class S2UserMessageDao extends AbstractExtendDAOImpl<S2UserMessageRecord, S2UserMessage, Integer> {
+public class S2UserMessageDao extends ExtendDAOImpl<S2UserMessageRecord, S2UserMessage, Integer> {
 
     /**
      * Create a new S2UserMessageDao without any configuration
