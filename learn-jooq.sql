@@ -25,7 +25,7 @@ CREATE TABLE `s1_user` (
   `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=317 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='USER TABLE';
+) ENGINE=InnoDB AUTO_INCREMENT=343 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='USER TABLE';
 
 /*Data for the table `s1_user` */
 
@@ -83,7 +83,7 @@ CREATE TABLE `s4_columen_gt22` (
   `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='超过22个字段的表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='表字段超22';
 
 /*Data for the table `s4_columen_gt22` */
 
@@ -117,6 +117,37 @@ CREATE TABLE `s4_union_key` (
 insert  into `s4_union_key`(`uk_1`,`uk_2`,`create_time`,`update_time`) values 
 (1,1,'2020-01-07 11:30:12','2020-01-07 11:30:12'),
 (1,2,'2020-01-07 11:30:14','2020-01-07 11:30:14');
+
+/*Table structure for table `s9_news` */
+
+CREATE TABLE `s9_news` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `title` varchar(60) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '标题',
+  `content` varchar(500) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '内容',
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='新闻表';
+
+/*Data for the table `s9_news` */
+
+insert  into `s9_news`(`id`,`title`,`content`,`create_time`,`update_time`) values 
+(1,'news1','content1','2020-01-21 11:26:29','2020-01-21 11:26:41'),
+(2,'random','c2','2020-01-21 11:26:33','2020-01-21 11:27:26'),
+(3,'nothing happen','hello world','2020-01-21 11:26:37','2020-01-21 11:27:31'),
+(4,'a language','c++','2020-01-21 11:26:57','2020-01-21 11:27:36'),
+(5,'do something','write java code for good','2020-01-21 11:27:06','2020-01-21 11:27:59'),
+(6,'just data','big data','2020-01-21 11:27:14','2020-01-21 11:28:05'),
+(7,'helll','passl','2020-01-21 11:28:13','2020-01-21 11:28:24'),
+(8,'more page ','more page for test','2020-01-21 11:28:35','2020-01-21 11:28:35'),
+(9,'good test','test case is good idea','2020-01-21 11:28:42','2020-01-21 11:28:42'),
+(10,'idea','intj','2020-01-21 11:28:48','2020-01-21 11:28:48'),
+(11,'idea2','eclipse','2020-01-21 11:28:56','2020-01-21 11:28:56'),
+(12,'en-page','goods in page','2020-01-21 11:29:10','2020-01-21 11:29:10'),
+(13,'role-for','role for nothing','2020-01-21 11:29:18','2020-01-21 11:29:18'),
+(14,'check ids','check the ids ','2020-01-21 11:29:26','2020-01-21 11:29:26'),
+(15,'id','id is primary key','2020-01-21 11:29:34','2020-01-21 11:29:34'),
+(16,'any key','no keys','2020-01-21 11:29:38','2020-01-21 11:29:38');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
