@@ -58,7 +58,7 @@ class UserInsertTest extends BaseTest {
         record.setUsername("usernameRecord1");
         record.setEmail("diamondfsd@gmail.com");
         record.setAddress("address hello");
-        int recordInsertRows = record.store();
+        int recordInsertRows = record.insert();
         Assertions.assertNotNull(record.getId());
         Assertions.assertNull(record.getCreateTime());
         Assertions.assertEquals(1, recordInsertRows);
